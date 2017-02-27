@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sites>
+
+    <site id="44">
+        <name>华为应用市场</name>
+        <url>http://appstore.huawei.com/</url>
+        <package>com.buptnsrc.search.ApkDetail.Huawei</package>
+        <regex>com.buptnsrc.search.UrlDetail.Huawei</regex>
+    </site>
+
+</sites>

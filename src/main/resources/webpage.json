@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "WebPage", "default":null,
+  "namespace": "com.buptnsrc.search.resource",
+  "doc": "WebPage is the primary data structure ",
+  "fields" : [
+    {"name": "url", "type": ["null","string"], "default":null},
+    {"name": "charset", "type": ["null","string"], "default":null},
+    {"name": "fetchTime", "type":"long", "default":0},
+    {"name": "fetchInterval", "type": "int", "default":1},
+    {"name": "retriesSinceFetch", "type": "int", "default":0},
+    {"name": "status", "type": ["null","string"], "default":null},
+    {"name": "statusCode", "type": ["null","string"], "default":null},
+    {"name": "referrer", "type": ["null","string"], "default":null},
+    {"name": "apk", "type": ["null","string"], "default":null},
+    {"name": "md5", "type": ["null","string"], "default":null}
+  ]
+}
