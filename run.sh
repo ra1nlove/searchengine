@@ -10,7 +10,13 @@ do
 	hadoop jar generate.jar
 	echo $?
 
+    echo "sleep 30s to start fetch"
+    sleep 30;
+
 	hadoop jar fetch.jar
 	echo $?
+
+    echo "sleep 30s to start generate"
+    sleep 30;
 
 done

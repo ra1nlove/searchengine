@@ -1,6 +1,4 @@
-package com.buptnsrc.search.Parse;
-
-import java.util.List;
+package com.buptnsrc.search.parse;
 
 /**
  * Created by rain on 17-2-24.

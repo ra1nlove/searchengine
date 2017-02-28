@@ -1,19 +1,19 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.Parse.ApkInfo;
-import com.buptnsrc.search.Parse.UrlInfo;
+import com.buptnsrc.search.parse.ApkInfo;
+import com.buptnsrc.search.parse.UrlInfo;
 import com.buptnsrc.search.download.PageDownload;
-import com.buptnsrc.search.resource.Apk;
 import com.buptnsrc.search.resource.WebPage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.gora.mapreduce.GoraMapper;
 import org.apache.hadoop.io.Text;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CountDownLatch;
 
@@ -55,7 +55,6 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
                             ApkInfo.getApk(page, result);
                             List<WebPage> pages = UrlInfo.getUrl(page, result);
                             for (WebPage newpage : pages) {
-                                context.getCounter("FetchJob","new").increment(1);
                                 context.write(new Text("1000000000"), newpage);
                             }
                         }

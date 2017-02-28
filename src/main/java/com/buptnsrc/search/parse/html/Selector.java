@@ -1,32 +1,30 @@
-package com.buptnsrc.search.Parse.html;
-
-import org.jsoup.nodes.Element;
+package com.buptnsrc.search.parse.html;
 
 import java.util.List;
 
 /**
- * Selector(extractor) for html elements.<br>
+ * Selector(extractor) for text.<br>
  *
  * @author code4crafter@gmail.com <br>
- * @since 0.3.0
+ * @since 0.1.0
  */
-public interface ElementSelector {
+public interface Selector {
 
     /**
      * Extract single result in text.<br>
      * If there are more than one result, only the first will be chosen.
      *
-     * @param element
+     * @param text
      * @return result
      */
-    public String select(Element element);
+    public String select(String text);
 
     /**
      * Extract all results in text.<br>
      *
-     * @param element
+     * @param text
      * @return results
      */
-    public List<String> selectList(Element element);
+    public List<String> selectList(String text);
 
 }

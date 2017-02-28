@@ -1,4 +1,4 @@
-package com.buptnsrc.search.Parse.html;
+package com.buptnsrc.search.parse.html;
 
 /**
  * Convenient methods for selectors.<br>

@@ -45,7 +45,6 @@ public class FetcherJob {
     public void fetch()throws Exception{
 
         Configuration conf = new Configuration();
-        conf.set(CommonConfigurationKeys.IO_SERIALIZATIONS_KEY, "org.apache.hadoop.io.serializer.WritableSerialization");
         Job job = Job.getInstance(conf);
         job.setJarByClass(FetcherJob.class);
         job.setJobName("fetcherJob");

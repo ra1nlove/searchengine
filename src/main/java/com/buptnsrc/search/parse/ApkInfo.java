@@ -1,9 +1,11 @@
-package com.buptnsrc.search.Parse;
+package com.buptnsrc.search.parse;
 
 import com.buptnsrc.search.resource.Apk;
 import com.buptnsrc.search.resource.Sites;
 import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.SendData;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.net.URL;
 
@@ -11,6 +13,8 @@ import java.net.URL;
  * Created by rain on 17-2-24.
  */
 public class ApkInfo {
+
+    static Log log = LogFactory.getLog(ApkInfo.class);
 
     public static void getApk(WebPage page, String content){
         Apk apk = null;
@@ -22,16 +26,22 @@ public class ApkInfo {
             if(apk != null){
                 if(page.getApk() != null) {
                     String apkhash = page.getApk().toString();
-                    if (apkhash != null && apkhash.equals(apk.getApkHash()) && !page.isDirty("fetchInterval")) {
+                    if ( apkhash.equals(apk.getApkHash()) && !page.isDirty("fetchInterval") ) {
                         int interval = page.getFetchInterval();
                         page.setFetchInterval(interval * 2);
+                    }else if( !apkhash.equals(apk.getApkHash()) ){
+                        SendData.sendData(apk);
+                        page.setFetchInterval(1);
                     }
+                }else{
+                    SendData.sendData(apk);
                 }
                 page.setApk(apk.getApkHash());
-    //            SendData.sendData(apk);
+
+                log.info("download page getApkInfo : "+page.getUrl().toString());
             }
         }catch(Exception e){
-            e.printStackTrace();
+            log.info("getApk error ! ",e);
         }
 
     }

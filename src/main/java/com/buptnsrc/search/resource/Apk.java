@@ -231,7 +231,7 @@ public class Apk {
     public String getApkHash() throws Exception{
         URL url = new URL(appMetaUrl);
         String host = url.getHost();
-        String infoStr = appSize+"APK"+Sites.channelId.get(host)+appVersion+appName;
+        String infoStr = appSize+"APK"+Sites.channelId.get(host)+appVersion+appName+appDownloadUrl;
         if(infoStr != null){
             return StringTool.getHash(infoStr);
         }

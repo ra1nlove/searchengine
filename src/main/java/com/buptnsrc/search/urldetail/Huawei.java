@@ -1,6 +1,6 @@
 package com.buptnsrc.search.urldetail;
 
-import com.buptnsrc.search.Parse.UrlDetail;
+import com.buptnsrc.search.parse.UrlDetail;
 
 public class Huawei implements UrlDetail{
 

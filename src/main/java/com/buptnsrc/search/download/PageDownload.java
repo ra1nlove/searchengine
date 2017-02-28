@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -43,6 +44,7 @@ public class PageDownload {
                         .setConnectionRequestTimeout(3000)
                         .setSocketTimeout(10000)
                         .setProxy(host)
+                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
                         .build();
                 //设置请求头
                 httpget.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1");
@@ -63,16 +65,17 @@ public class PageDownload {
                         page.setFetchInterval(interval*2);
                     }
                     page.setMd5(pagemd5);
-                    log.info("download page success : "+page.getUrl().toString());
+                    log.info("download page success by "+proxy+" : "+page.getUrl().toString());
                     return result;
                 }else if(statuscode>400 && statuscode <500){
                     page.setStatus("end");
-                    log.info("download page "+statuscode+"     : "+page.getUrl().toString());
+                    log.info("download page "+statuscode+"     by "+proxy+" : "+page.getUrl().toString());
                     return result;
+                }else{
+                    log.info("download page "+statuscode+"     by "+proxy+" : "+page.getUrl().toString());
                 }
-
             }catch (Exception e ){
-                log.error("download error !",e);
+                log.info("download page "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
             }finally {
                 page.setStatus("fetch");
                 httpget.abort();
@@ -89,8 +92,9 @@ public class PageDownload {
         }else if(statuscode<400){
             page.setRetriesSinceFetch(0);
         }
-        log.info("download page "+statuscode+"     : "+page.getUrl().toString());
+
         return result;
+
     }
 
     /**
