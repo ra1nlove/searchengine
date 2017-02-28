@@ -1,16 +1,18 @@
-package com.buptnsrc.search.ApkDetail;
+package com.buptnsrc.search.apkdetail;
 
 import java.util.List;
 import com.buptnsrc.search.Parse.ApkDetail;
 import com.buptnsrc.search.Parse.html.Html;
 import com.buptnsrc.search.resource.Apk;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 
 
 public class Huawei implements ApkDetail{
 
-	public static Logger log = Logger.getLogger(Huawei.class);
+	public static Log log = LogFactory.getLog(Huawei.class);
 	
     public Apk getApkInfo(String url, String content) {
     	

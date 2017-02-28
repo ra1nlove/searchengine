@@ -2,14 +2,16 @@ package com.buptnsrc.search.download;
 
 import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.StringTool;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,10 +21,15 @@ import java.util.regex.Pattern;
  */
 public class PageDownload {
 
-    private static Logger log = Logger.getLogger(PageDownload.class);
+    private static Log log = LogFactory.getLog(PageDownload.class);
     static CloseableHttpClient httpclient= HttpClientManager.getHttpClient();
-    static String[] proxys = {"proxy.asec.buptnsrc.com","proxy2.asec.buptnsrc.com","proxy1.asec.buptnsrc.com"};
+    private static String[] proxys = {"proxy.asec.buptnsrc.com","proxy2.asec.buptnsrc.com","proxy1.asec.buptnsrc.com"};
 
+    /**
+     * 对页面进行下载、解析
+     * @param  page
+     * @return 页面的内容
+     */
     public static String download(WebPage page){
         String result = null;
         HttpGet httpget = null;
@@ -41,7 +48,6 @@ public class PageDownload {
                 httpget.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1");
                 httpget.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
                 httpget.setHeader("Accept-Encoding", "gzip, deflate, sdch");
-                httpget.addHeader("Accept-Charset", "UTF-8");
                 httpget.setConfig(requestConfig);
 
                 CloseableHttpResponse resp = httpclient.execute(httpget);
@@ -50,11 +56,7 @@ public class PageDownload {
                 page.setStatusCode(String.valueOf(statuscode));
                 if(statuscode==200){
                     HttpEntity entity = resp.getEntity();
-                    if(page.getCharset() !=null){
-                        result = EntityUtils.toString(entity, page.getCharset().toString()) ;
-                    }else {
-                        result = getContent(entity,page) ;
-                    }
+                    result = getContent(entity,page);
                     String pagemd5 = StringTool.getHash(StringTool.getContext(result));
                     if(page.getMd5()!=null && pagemd5.equals(page.getMd5())){
                         int interval = page.getFetchInterval();
@@ -70,7 +72,7 @@ public class PageDownload {
                 }
 
             }catch (Exception e ){
-                e.printStackTrace();
+                log.error("download error !",e);
             }finally {
                 page.setStatus("fetch");
                 httpget.abort();
@@ -91,22 +93,43 @@ public class PageDownload {
         return result;
     }
 
+    /**
+     * 页面编码类型的自动识别
+     * @param entity
+     * @param page
+     * @return 页面的内容
+     * @throws Exception
+     */
     public static String getContent(HttpEntity entity,WebPage page) throws Exception{
         String content = null;
-        String html = EntityUtils.toString(entity);
-        String charset = getCharset(html);
-        page.setCharset(charset);
-        if( charset.contains("gb") ) {
-            content = new String(html.getBytes("8859_1"),"gb2312") ;
-        } else {
-            content = new String(html.getBytes("8859_1"),"UTF-8") ;
+        String charset = null;
+        ContentType reader = ContentType.get(entity);
+        if(reader != null){
+            charset = reader.getParameter("charset");
         }
+        if(charset != null) {
+            content = EntityUtils.toString(entity);
+        }else {
+            String html = EntityUtils.toString(entity);
+            charset = getCharset(html);
+            if (charset.contains("gb")) {
+                content = new String(html.getBytes("8859_1"), "gb2312");
+            } else {
+                content = new String(html.getBytes("8859_1"), "utf-8");
+            }
+        }
+        page.setCharset(charset);
         return content;
     }
 
+    /**
+     * 对页面的Content-Type标签进行提取
+     * @param page
+     * @return 页面的编码类型
+     */
     public static String getCharset(String page){
         String charset = "UTF-8";
-        String regex ="content=\"text/html; charset=(.*)\"";
+        String regex ="content=\"text/html; charset=([^\"]*)\"";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(page);
         if(matcher.find()){

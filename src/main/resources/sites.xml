@@ -5,8 +5,8 @@
     <site id="44">
         <name>华为应用市场</name>
         <url>http://appstore.huawei.com/</url>
-        <package>com.buptnsrc.search.ApkDetail.Huawei</package>
-        <regex>com.buptnsrc.search.UrlDetail.Huawei</regex>
+        <package>com.buptnsrc.search.apkdetail.Huawei</package>
+        <regex>com.buptnsrc.search.urldetail.Huawei</regex>
     </site>
 
 </sites>

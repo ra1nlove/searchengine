@@ -3,6 +3,8 @@ package com.buptnsrc.search.job;
 import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.StringArray;
 import org.apache.avro.util.Utf8;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.gora.filter.FilterOp;
 import org.apache.gora.filter.SingleFieldValueFilter;
 import org.apache.gora.mapreduce.GoraMapper;
@@ -27,8 +29,6 @@ import java.util.List;
  */
 public class FetcherJob {
 
-    private Logger log = Logger.getLogger(FetcherJob.class);
-
     private static final Collection<WebPage.Field> FIELDS = new HashSet<WebPage.Field>();
 
     public FetcherJob(){
@@ -43,11 +43,6 @@ public class FetcherJob {
     }
 
     public void fetch()throws Exception{
-
-        log.info("=======================FetcherJob==============================");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long start = System.currentTimeMillis();
-        log.info("FetcherJob : starting at " + sdf.format(start));
 
         Configuration conf = new Configuration();
         conf.set(CommonConfigurationKeys.IO_SERIALIZATIONS_KEY, "org.apache.hadoop.io.serializer.WritableSerialization");
@@ -74,13 +69,6 @@ public class FetcherJob {
         job.killJob();
 
         dataStore.close();
-
-        long all= job.getCounters().findCounter("FetchJob", "all").getValue();
-        long success =job.getCounters().findCounter("FetchJob", "success").getValue();
-        long news =job.getCounters().findCounter("FetchJob", "new").getValue();
-        long end = System.currentTimeMillis();
-        log.info("FetcherJob : end at " + sdf.format(end)+" , all "+all+" urls , success "+success+" urls , new "+news+" urls");
-        log.info("=======================FetcherJob==============================");
 
     }
 

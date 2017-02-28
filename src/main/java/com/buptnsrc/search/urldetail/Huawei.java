@@ -1,9 +1,6 @@
-package com.buptnsrc.search.UrlDetail;
+package com.buptnsrc.search.urldetail;
 
 import com.buptnsrc.search.Parse.UrlDetail;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Huawei implements UrlDetail{
 

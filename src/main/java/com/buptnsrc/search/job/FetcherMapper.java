@@ -5,6 +5,8 @@ import com.buptnsrc.search.Parse.UrlInfo;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.Apk;
 import com.buptnsrc.search.resource.WebPage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.gora.mapreduce.GoraMapper;
 import org.apache.hadoop.io.Text;
 import org.apache.log4j.Logger;
@@ -20,7 +22,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
 
-    private Logger log = Logger.getLogger(FetcherMapper.class);
+    private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
     private final CountDownLatch endGate = new CountDownLatch(50);
 

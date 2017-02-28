@@ -1,5 +1,6 @@
 package com.buptnsrc.search.job;
 
+import com.buptnsrc.search.resource.Sites;
 import com.buptnsrc.search.utils.StringArray;
 import com.buptnsrc.search.resource.WebPage;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,6 @@ import org.apache.log4j.Logger;
  */
 public class GeneratorJob {
 
-    private static Logger log = Logger.getLogger(GeneratorJob.class);
     private Collection<WebPage.Field> FIELDS = new HashSet<>();
 
     public GeneratorJob(){
@@ -34,11 +34,6 @@ public class GeneratorJob {
     }
 
     private void generate() throws Exception{
-
-        log.info("=======================GeneratorJob==============================");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long start = System.currentTimeMillis();
-        log.info("GeneratorJob : starting at " + sdf.format(start));
 
         Configuration conf = new Configuration();
         conf.set(CommonConfigurationKeys.IO_SERIALIZATIONS_KEY, "org.apache.hadoop.io.serializer.WritableSerialization");
@@ -54,12 +49,6 @@ public class GeneratorJob {
 
         job.waitForCompletion(true);
         job.killJob();
-
-        long all = job.getCounters().findCounter("generator","all").getValue();
-        long urls = job.getCounters().findCounter("generator","urls").getValue();
-        long end = System.currentTimeMillis();
-        log.info("GeneratorJob : end at " + sdf.format(end)+", total "+all+" urls , generate "+urls+" urls");
-        log.info("=======================GeneratorJob==============================");
 
     }
 
