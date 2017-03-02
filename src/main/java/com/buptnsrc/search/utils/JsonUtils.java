@@ -17,10 +17,6 @@ public class JsonUtils {
 	
 	/**
 	 * generate the data in a certain format
-	 * @param agentId
-	 * @param channelId
-	 * @param header
-	 * @param status
 	 * @param apk
 	 * @return
 	    agentId : agent_id
@@ -45,10 +41,10 @@ public class JsonUtils {
 	public static String getSenderData(Apk apk) throws Exception{
 		URL pageurl = new URL(apk.getAppMetaUrl().toLowerCase());
 		String host = pageurl.getHost();
-		String data = "{\"agentId\":\"searcher\",\"channelId\":\"" + Sites.channelId.get(host) + "\"," +"\"header\":\"\"," +"\"status\":\"4\"," + "\"details\":";
+		String data = "{\"agentId\":\"searcher\",\"channelId\":\"" + Sites.channelId.get(host) + "\"," +"\"header\":\"\"," +"\"status\":\"4\"," + "\"details\":[";
 		String appsData = objectToJson(apk);
 		appsData = appsData.replace("appType\":\"\"", "appType\":\"APK\"");
-		data = data + appsData + "}";
+		data = data + appsData + "]}";
 		return data;
 	}
 

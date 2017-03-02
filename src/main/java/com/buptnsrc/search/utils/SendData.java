@@ -19,9 +19,7 @@ public class SendData {
             jedis = new Jedis("asec.buptnsrc.com", 6379);
             String data = JsonUtils.getSenderData(apk);
             StringBuilder formatResult = new StringBuilder(data);
-            String insertString = "\"subtaskId\":\"" + "" + "\",";
-            formatResult.insert(1, insertString);
-            jedis.sadd("result_searcher", formatResult.toString());
+            jedis.sadd("search_result_queue", formatResult.toString());
             log.info("send data to redis sucessful");
         }catch(Exception e ){
             log.error("sendData error!",e);

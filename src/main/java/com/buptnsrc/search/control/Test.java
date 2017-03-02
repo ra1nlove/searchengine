@@ -14,6 +14,7 @@ public class Test {
     public static void main(String[] args) {
         try {
             Configuration conf = HBaseConfiguration.create();
+
             DataStore<String, WebPage> pageStore;
             pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf);
             WebPage page =new WebPage();
