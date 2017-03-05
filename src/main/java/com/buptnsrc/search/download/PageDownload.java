@@ -24,7 +24,7 @@ public class PageDownload {
 
     private static Log log = LogFactory.getLog(PageDownload.class);
     static CloseableHttpClient httpclient= HttpClientManager.getHttpClient();
-    private static String[] proxys = {"proxy.asec.buptnsrc.com","proxy2.asec.buptnsrc.com","proxy1.asec.buptnsrc.com"};
+    private static String[] proxys = {"proxy2.asec.buptnsrc.com","proxy.asec.buptnsrc.com","proxy1.asec.buptnsrc.com"};
 
     /**
      * 对页面进行下载、解析

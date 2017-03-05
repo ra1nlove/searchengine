@@ -256,7 +256,6 @@ public class Apk {
         strBuilder.append("Version:" + 		this.getAppVersion()+"\n");
         strBuilder.append("Screenshot:" + 	this.getAppScreenshot()+"\n");
         strBuilder.append("comment:" + 		this.getAppComment()+"\n");
-
         return strBuilder.toString();
     }
     @Override
