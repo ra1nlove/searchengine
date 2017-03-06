@@ -28,13 +28,14 @@ public class Mumayi implements ApkDetail{
 			String appCategory = html.xpath("//ul[@class='istyle fl']/li[2]/text()").get();
 			String appVenderName = html.xpath("//ul[@class='author']/li[1]/text()").toString();
 
-			Apk apk = new Apk(appName,url,appDownloadUrl,osPlatform,appVersion,appSize,appUpdateDate,"Apk",null);
-			apk.setAppDescription(appDescription);
-			apk.setAppVenderName(appVenderName);
-			apk.setAppScreenshot(appScreenshot);
-			apk.setAppCategory(appCategory);
-
-			return apk;
+			if(appDownloadUrl!=null) {
+				Apk apk = new Apk(appName, url, appDownloadUrl, osPlatform, appVersion, appSize, appUpdateDate, "Apk", null);
+				apk.setAppDescription(appDescription);
+				apk.setAppVenderName(appVenderName);
+				apk.setAppScreenshot(appScreenshot);
+				apk.setAppCategory(appCategory);
+				return apk;
+			}
 		}
 		return null;
 	}

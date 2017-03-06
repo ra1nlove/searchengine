@@ -39,6 +39,8 @@ public class ApkInfo {
                 page.setApk(apk.getApkHash());
 
                 log.info("download page getApkInfo : "+page.getUrl().toString());
+            }else{
+                log.info("download page getNothing : "+page.getUrl().toString());
             }
         }catch(Exception e){
             log.info("getApk error ! ",e);

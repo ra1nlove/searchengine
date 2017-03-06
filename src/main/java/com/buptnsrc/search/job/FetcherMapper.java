@@ -55,7 +55,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
                             ApkInfo.getApk(page, result);
                             List<WebPage> pages = UrlInfo.getUrl(page, result);
                             for (WebPage newpage : pages) {
-                                context.write(new Text("1000000000"), newpage);
+                                context.write(new Text("1000000100"), newpage);
                             }
                         }
                         char[] dirty = new char[10];

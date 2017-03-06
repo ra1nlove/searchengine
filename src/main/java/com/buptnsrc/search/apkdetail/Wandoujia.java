@@ -41,13 +41,15 @@ public class Wandoujia implements ApkDetail{
 			for(String str : appComments){
 				appComment+=str+"#";
 			}
-			Apk apk = new Apk(appName,url,appDownloadUrl,osPlatform,appVersion,appSize,appUpdateDate,"Apk",null);
-			apk.setAppDescription(appDescription);
-			apk.setAppScreenshot(appScreenshot);
-			apk.setAppCategory(appCategory);
-			apk.setAppComment(appComment);
-			apk.setAppDownloadTimes(dowloadNum);
-			return apk;
+			if(appDownloadUrl != null) {
+				Apk apk = new Apk(appName, url, appDownloadUrl, osPlatform, appVersion, appSize, appUpdateDate, "Apk", null);
+				apk.setAppDescription(appDescription);
+				apk.setAppScreenshot(appScreenshot);
+				apk.setAppCategory(appCategory);
+				apk.setAppComment(appComment);
+				apk.setAppDownloadTimes(dowloadNum);
+				return apk;
+			}
 		}
     	return null;
     }
