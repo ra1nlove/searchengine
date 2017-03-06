@@ -18,7 +18,7 @@
 
     <site id="40">
         <name>豌豆荚</name>
-        <url>http://www.wandoujia.com/apps</url>
+        <url>http://www.wandoujia.com/apps/</url>
         <package>com.buptnsrc.search.apkdetail.Wandoujia</package>
         <regex>com.buptnsrc.search.urldetail.Wandoujia</regex>
     </site>

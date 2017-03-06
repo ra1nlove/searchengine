@@ -4,6 +4,7 @@ import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.StringTool;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.CookieSpecs;
@@ -56,6 +57,14 @@ public class PageDownload {
 
                 statuscode = resp.getStatusLine().getStatusCode();
                 page.setStatusCode(String.valueOf(statuscode));
+
+                Header[] header = resp.getHeaders("Content-Type");
+                if(header == null || !header[0].getValue().contains("text/html")){
+                    log.info("download file fail by "+proxy+" : "+page.getUrl().toString());
+                    page.setStatus("end");
+                    return result;
+                }
+
                 if(statuscode==200){
                     HttpEntity entity = resp.getEntity();
                     result = getContent(entity,page);
@@ -65,6 +74,8 @@ public class PageDownload {
                         page.setFetchInterval(interval*2);
                     }
                     page.setMd5(pagemd5);
+                    page.setStatus("fetch");
+                    page.setRetriesSinceFetch(0);
                     log.info("download page success by "+proxy+" : "+page.getUrl().toString());
                     return result;
                 }else if(statuscode>400 && statuscode <500){
@@ -77,7 +88,6 @@ public class PageDownload {
             }catch (Exception e ){
                 log.info("download page "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
             }finally {
-                page.setStatus("fetch");
                 httpget.abort();
             }
         }
@@ -88,9 +98,9 @@ public class PageDownload {
             page.setRetriesSinceFetch(num);
             if(num>3){
                 page.setStatus("end");
+            }else{
+                page.setStatus("fetch");
             }
-        }else if(statuscode<400){
-            page.setRetriesSinceFetch(0);
         }
 
         return result;

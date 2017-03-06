@@ -87,7 +87,7 @@
 
     <build>
 
-        <finalName>generate</finalName>
+        <finalName>fetch</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,7 +128,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.buptnsrc.search.job.GeneratorJob</mainClass>
+                            <mainClass>com.buptnsrc.search.job.FetcherJob</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
