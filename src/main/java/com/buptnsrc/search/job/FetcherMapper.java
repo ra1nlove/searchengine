@@ -25,9 +25,11 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
     private final CountDownLatch endGate = new CountDownLatch(50);
+    private int nums = 5000;
 
     private void addUrls(Context context)throws InterruptedException, IOException {
         while(context.nextKeyValue()){
+            if(nums--<0) return;
             pages.add(context.getCurrentValue());
             context.getCounter("FetchJob","all").increment(1);
         }
