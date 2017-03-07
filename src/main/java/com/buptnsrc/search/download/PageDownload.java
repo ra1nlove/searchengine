@@ -41,7 +41,7 @@ public class PageDownload {
                 httpget = new HttpGet(page.getUrl().toString());
                 HttpHost host = new HttpHost(proxy, 8001, "http");
                 RequestConfig requestConfig = RequestConfig.custom()
-                        .setConnectTimeout(5000)
+                        .setConnectTimeout(10000)
                         .setConnectionRequestTimeout(3000)
                         .setSocketTimeout(10000)
                         .setProxy(host)
@@ -86,6 +86,7 @@ public class PageDownload {
                     log.info("download page "+statuscode+"     by "+proxy+" : "+page.getUrl().toString());
                 }
             }catch (Exception e ){
+                page.setStatus("fail");
                 log.info("download page "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
             }finally {
                 httpget.abort();

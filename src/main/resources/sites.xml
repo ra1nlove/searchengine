@@ -23,4 +23,11 @@
         <regex>com.buptnsrc.search.urldetail.Wandoujia</regex>
     </site>
 
+    <site id="168">
+        <name>360</name>
+        <url>http://zhushou.360.cn</url>
+        <package>com.buptnsrc.search.apkdetail.Zs360</package>
+        <regex>com.buptnsrc.search.urldetail.Zs360</regex>
+    </site>
+
 </sites>
