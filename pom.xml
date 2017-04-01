@@ -93,7 +93,7 @@
 
     <build>
 
-        <finalName>fetch</finalName>
+        <finalName>index</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -134,7 +134,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.buptnsrc.search.job.FetcherJob</mainClass>
+                            <mainClass>com.buptnsrc.search.job.IndexJob</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
