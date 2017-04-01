@@ -1,6 +1,5 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.parse.ApkInfo;
 import com.buptnsrc.search.parse.UrlInfo;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
@@ -10,10 +9,8 @@ import org.apache.gora.mapreduce.GoraMapper;
 import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
-import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CountDownLatch;
 
@@ -24,7 +21,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
 
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
-    private final CountDownLatch endGate = new CountDownLatch(50);
+    private final CountDownLatch endGate = new CountDownLatch(20);
     private int nums = 5000;
 
     private void addUrls(Context context)throws InterruptedException, IOException {
@@ -54,14 +51,13 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
                             String result = PageDownload.download(page);
                         if (result != null) {
                             context.getCounter("FetchJob","success").increment(1);
-                            ApkInfo.getApk(page, result);
                             List<WebPage> pages = UrlInfo.getUrl(page, result);
                             for (WebPage newpage : pages) {
-                                context.write(new Text("1000000100"), newpage);
+                                context.write(new Text("1000000000"), newpage);
                             }
                         }
-                        char[] dirty = new char[10];
-                        for(int i=0;i<10;i++) {
+                        char[] dirty = new char[9];
+                        for(int i=0;i<9;i++) {
                             if (page.isDirty(i)) {
                                 dirty[i] = '1';
                             } else {
@@ -86,7 +82,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
     public void run(Context context) throws InterruptedException, IOException {
         try{
             addUrls(context);
-            for(int i = 0 ;i<50;i++){
+            for(int i = 0 ;i<20;i++){
                 FetchThread fetchThread = new FetchThread(context,i);
                 fetchThread.start();
             }

@@ -6,13 +6,14 @@ import org.apache.avro.util.Utf8;
 import org.apache.gora.filter.FilterOp;
 import org.apache.gora.filter.SingleFieldValueFilter;
 import org.apache.gora.mapreduce.GoraMapper;
-import org.apache.gora.mapreduce.GoraReducer;
 import org.apache.gora.query.Query;
 import org.apache.gora.store.DataStore;
 import org.apache.gora.store.DataStoreFactory;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.MapWritable;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Job;
+import org.elasticsearch.hadoop.mr.EsOutputFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,27 +21,19 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Created by rain on 17-2-24.
+ * Created by rain on 17-3-30.
  */
-public class FetcherJob {
+public class IndexJob {
 
     private static final Collection<WebPage.Field> FIELDS = new HashSet<WebPage.Field>();
 
-    public FetcherJob(){
+    public IndexJob(){
         FIELDS.add(WebPage.Field.STATUS);
-        FIELDS.add(WebPage.Field.FETCH_INTERVAL);
         FIELDS.add(WebPage.Field.URL);
-        FIELDS.add(WebPage.Field.CHARSET);
-        FIELDS.add(WebPage.Field.MD5);
-        FIELDS.add(WebPage.Field.RETRIES_SINCE_FETCH);
+        FIELDS.add(WebPage.Field.CONTENT);
     }
 
-    public void fetch()throws Exception{
-
-        Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf);
-        job.setJarByClass(FetcherJob.class);
-        job.setJobName("fetcherJob");
+    public void index() throws Exception {
 
         DataStore<String,WebPage> dataStore = DataStoreFactory.getDataStore(String.class, WebPage.class, new Configuration());
         Query<String, WebPage> query = dataStore.newQuery();
@@ -50,28 +43,33 @@ public class FetcherJob {
         filter.setFilterOp(FilterOp.EQUALS);
         filter.setFilterIfMissing(true);
         List<Object> list = new ArrayList<Object>();
-        list.add(new Utf8("generate"));
+        list.add(new Utf8("index"));
         filter.setOperands(list);
         query.setFilter(filter);
 
-        GoraMapper.initMapperJob(job, query, dataStore, Text.class, WebPage.class,FetcherMapper.class ,  true);
-        GoraReducer.initReducerJob(job, dataStore, FetcherReducer.class);
+
+        Configuration conf = new Configuration();
+
+        conf.setBoolean("mapred.map.tasks.speculative.execution", false);
+        conf.setBoolean("mapred.reduce.tasks.speculative.execution", false);
+        conf.set("es.nodes", "10.108.113.231:9200");
+        conf.set("es.resource", "page/sina");
+        conf.set("es.mapping.id", "url");
+        Job job = Job.getInstance(conf);
+        GoraMapper.initMapperJob(job, query, dataStore, NullWritable.class, MapWritable.class,IndexMapper.class ,  true);
+        job.setOutputFormatClass(EsOutputFormat.class);
 
         job.waitForCompletion(true);
-        job.killJob();
-
         dataStore.close();
-
     }
 
+
     public static void main(String[] args){
-        try{
-            FetcherJob job = new FetcherJob();
-            job.fetch();
+        try {
+            IndexJob job = new IndexJob();
+            job.index();
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
 }

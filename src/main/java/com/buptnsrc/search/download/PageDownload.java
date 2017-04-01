@@ -72,9 +72,12 @@ public class PageDownload {
                     if(page.getMd5()!=null && pagemd5.equals(page.getMd5())){
                         int interval = page.getFetchInterval();
                         page.setFetchInterval(interval*2);
+                        page.setStatus("fetch");
+                    }else{
+                        page.setStatus("index");
                     }
                     page.setMd5(pagemd5);
-                    page.setStatus("fetch");
+                    page.setContent(StringTool.getContext(result));
                     page.setRetriesSinceFetch(0);
                     log.info("download page success by "+proxy+" : "+page.getUrl().toString());
                     return result;
@@ -87,13 +90,13 @@ public class PageDownload {
                 }
             }catch (Exception e ){
                 page.setStatus("fail");
-                log.info("download page "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
+                log.info("download page error "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
             }finally {
                 httpget.abort();
             }
         }
 
-        if(statuscode>=500){
+        if(statuscode>=500) {
             int num = page.getRetriesSinceFetch();
             num++;
             page.setRetriesSinceFetch(num);
@@ -123,7 +126,7 @@ public class PageDownload {
             charset = reader.getParameter("charset");
         }
         if(charset != null) {
-            content = EntityUtils.toString(entity);
+            content = EntityUtils.toString(entity,charset);
         }else {
             String html = EntityUtils.toString(entity);
             charset = getCharset(html);
@@ -133,6 +136,7 @@ public class PageDownload {
                 content = new String(html.getBytes("8859_1"), "utf-8");
             }
         }
+
         page.setCharset(charset);
         return content;
     }
@@ -144,7 +148,7 @@ public class PageDownload {
      */
     public static String getCharset(String page){
         String charset = "UTF-8";
-        String regex ="content=\"text/html; charset=([^\"]*)\"";
+        String regex ="meta.*charset=(.[^\"]*)\"";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(page);
         if(matcher.find()){

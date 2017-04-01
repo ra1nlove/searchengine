@@ -19,4 +19,10 @@ do
     echo "sleep 30s to start generate"
     sleep 30;
 
+    hadoop jar index.jar
+	echo $?
+
+    echo "sleep 30s to start generate"
+    sleep 30;
+
 done

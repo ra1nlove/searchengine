@@ -4,30 +4,7 @@
 
     <site id="44">
         <name>华为</name>
-        <url>http://appstore.huawei.com/</url>
-        <package>com.buptnsrc.search.apkdetail.Huawei</package>
-        <regex>com.buptnsrc.search.urldetail.Huawei</regex>
-    </site>
-
-    <site id="98">
-        <name>木蚂蚁</name>
-        <url>http://www.mumayi.com/</url>
-        <package>com.buptnsrc.search.apkdetail.Mumayi</package>
-        <regex>com.buptnsrc.search.urldetail.Mumayi</regex>
-    </site>
-
-    <site id="40">
-        <name>豌豆荚</name>
-        <url>http://www.wandoujia.com/apps/</url>
-        <package>com.buptnsrc.search.apkdetail.Wandoujia</package>
-        <regex>com.buptnsrc.search.urldetail.Wandoujia</regex>
-    </site>
-
-    <site id="168">
-        <name>360</name>
-        <url>http://zhushou.360.cn</url>
-        <package>com.buptnsrc.search.apkdetail.Zs360</package>
-        <regex>com.buptnsrc.search.urldetail.Zs360</regex>
+        <url>http://www.sina.com.cn/</url>
     </site>
 
 </sites>

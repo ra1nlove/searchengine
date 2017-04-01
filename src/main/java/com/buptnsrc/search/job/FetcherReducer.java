@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class FetcherReducer extends GoraReducer<Text, WebPage, String, WebPage> {
 
-    BloomFilter<byte[]> bloomFilter  = BloomFilter.create(Funnels.byteArrayFunnel(),10000000);
+    BloomFilter<byte[]> bloomFilter  = BloomFilter.create(Funnels.byteArrayFunnel(),1000000);
 
     @Override
     public void reduce(Text key, Iterable<WebPage> pages, Context context) throws IOException, InterruptedException{
@@ -27,7 +27,7 @@ public class FetcherReducer extends GoraReducer<Text, WebPage, String, WebPage> 
                 context.getCounter("FetchJob","new").increment(1);
             }
             page.clearDirty();
-            for(int i=0;i<10;i++){
+            for(int i=0;i<9;i++){
                 if(key.toString().charAt(i) == '1'){
                     String field = WebPage._ALL_FIELDS[i];
                     page.setDirty(field);

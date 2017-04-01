@@ -1,3 +1,5 @@
+import com.buptnsrc.search.download.PageDownload;
+import com.buptnsrc.search.resource.WebPage;
 import org.apache.hadoop.io.IntWritable;
 
 /**
@@ -6,8 +8,9 @@ import org.apache.hadoop.io.IntWritable;
 public class Test {
 
     public static void main(String[] args) throws Exception{
-        IntWritable write = new IntWritable();
-        write.set(1);
+        WebPage page = new WebPage();
+        page.setUrl("http://zhuanlan.sina.com.cn/");
+        System.out.println(PageDownload.download(page));
     }
 
 }

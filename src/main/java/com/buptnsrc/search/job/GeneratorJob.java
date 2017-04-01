@@ -1,9 +1,7 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.resource.Sites;
 import com.buptnsrc.search.utils.StringArray;
 import com.buptnsrc.search.resource.WebPage;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -18,10 +16,8 @@ import org.apache.gora.query.Query;
 import org.apache.gora.store.DataStore;
 import org.apache.gora.store.DataStoreFactory;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.CommonConfigurationKeys;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.log4j.Logger;
 
 
 /**

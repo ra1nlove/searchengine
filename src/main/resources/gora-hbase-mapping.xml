@@ -32,9 +32,8 @@
     <field name="fetchInterval" family="common" qualifier="interval"/>
     <field name="retriesSinceFetch" family="common" qualifier="retriestimes"/>
     <field name="fetchTime" family="common" qualifier="fetchtime"/>
-    <field name="apk" family="common" qualifier="apk"/>
-    <field name="referrer" family="common" qualifier="referrer"/>
     <field name="md5" family="common" qualifier="md5"/>
+    <field name="content" family="common" qualifier="content"/>
   </class>
 
 </gora-otd>

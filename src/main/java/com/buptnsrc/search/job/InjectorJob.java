@@ -26,6 +26,9 @@ public class InjectorJob {
         log.info("InjectorJob : starting at " + sdf.format(start));
 
         Configuration conf = HBaseConfiguration.create();
+        conf.set("hbase.zookeeper.quorum", "10.108.114.127");
+        conf.set("hbase.zookeeper.property.clientPort", "2181");
+
         DataStore<String,WebPage> pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf) ;
         for(String url : Sites.urls){
             WebPage page = new WebPage();

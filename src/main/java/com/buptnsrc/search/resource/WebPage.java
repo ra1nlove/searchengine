@@ -7,7 +7,7 @@ package com.buptnsrc.search.resource;
 @SuppressWarnings("all")
 /** WebPage is the primary data structure  */
 public class WebPage extends org.apache.gora.persistency.impl.PersistentBase implements org.apache.avro.specific.SpecificRecord, org.apache.gora.persistency.Persistent {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"referrer\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"apk\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null}],\"default\":null}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null}],\"default\":null}");
 
   /** Enum containing all data bean's fields. */
   public static enum Field {
@@ -18,9 +18,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     RETRIES_SINCE_FETCH(4, "retriesSinceFetch"),
     STATUS(5, "status"),
     STATUS_CODE(6, "statusCode"),
-    REFERRER(7, "referrer"),
-    APK(8, "apk"),
-    MD5(9, "md5"),
+    MD5(7, "md5"),
+    CONTENT(8, "content"),
     ;
     /**
      * Field's index.
@@ -66,9 +65,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   "retriesSinceFetch",
   "status",
   "statusCode",
-  "referrer",
-  "apk",
   "md5",
+  "content",
   };
 
   /**
@@ -86,9 +84,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   private int retriesSinceFetch;
   private CharSequence status;
   private CharSequence statusCode;
-  private CharSequence referrer;
-  private CharSequence apk;
   private CharSequence md5;
+  private CharSequence content;
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call. 
   public Object get(int field$) {
@@ -100,9 +97,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 4: return retriesSinceFetch;
     case 5: return status;
     case 6: return statusCode;
-    case 7: return referrer;
-    case 8: return apk;
-    case 9: return md5;
+    case 7: return md5;
+    case 8: return content;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -118,9 +114,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 4: retriesSinceFetch = (Integer)(value); break;
     case 5: status = (CharSequence)(value); break;
     case 6: statusCode = (CharSequence)(value); break;
-    case 7: referrer = (CharSequence)(value); break;
-    case 8: apk = (CharSequence)(value); break;
-    case 9: md5 = (CharSequence)(value); break;
+    case 7: md5 = (CharSequence)(value); break;
+    case 8: content = (CharSequence)(value); break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -294,54 +289,6 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   }
 
   /**
-   * Gets the value of the 'referrer' field.
-   */
-  public CharSequence getReferrer() {
-    return referrer;
-  }
-
-  /**
-   * Sets the value of the 'referrer' field.
-   * @param value the value to set.
-   */
-  public void setReferrer(CharSequence value) {
-    this.referrer = value;
-    setDirty(7);
-  }
-  
-  /**
-   * Checks the dirty status of the 'referrer' field. A field is dirty if it represents a change that has not yet been written to the database.
-   * @param value the value to set.
-   */
-  public boolean isReferrerDirty() {
-    return isDirty(7);
-  }
-
-  /**
-   * Gets the value of the 'apk' field.
-   */
-  public CharSequence getApk() {
-    return apk;
-  }
-
-  /**
-   * Sets the value of the 'apk' field.
-   * @param value the value to set.
-   */
-  public void setApk(CharSequence value) {
-    this.apk = value;
-    setDirty(8);
-  }
-  
-  /**
-   * Checks the dirty status of the 'apk' field. A field is dirty if it represents a change that has not yet been written to the database.
-   * @param value the value to set.
-   */
-  public boolean isApkDirty() {
-    return isDirty(8);
-  }
-
-  /**
    * Gets the value of the 'md5' field.
    */
   public CharSequence getMd5() {
@@ -354,7 +301,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setMd5(CharSequence value) {
     this.md5 = value;
-    setDirty(9);
+    setDirty(7);
   }
   
   /**
@@ -362,7 +309,31 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isMd5Dirty() {
-    return isDirty(9);
+    return isDirty(7);
+  }
+
+  /**
+   * Gets the value of the 'content' field.
+   */
+  public CharSequence getContent() {
+    return content;
+  }
+
+  /**
+   * Sets the value of the 'content' field.
+   * @param value the value to set.
+   */
+  public void setContent(CharSequence value) {
+    this.content = value;
+    setDirty(8);
+  }
+  
+  /**
+   * Checks the dirty status of the 'content' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isContentDirty() {
+    return isDirty(8);
   }
 
   /** Creates a new WebPage RecordBuilder */
@@ -416,9 +387,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     private int retriesSinceFetch;
     private CharSequence status;
     private CharSequence statusCode;
-    private CharSequence referrer;
-    private CharSequence apk;
     private CharSequence md5;
+    private CharSequence content;
 
     /** Creates a new Builder */
     private Builder() {
@@ -461,17 +431,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         this.statusCode = (CharSequence) data().deepCopy(fields()[6].schema(), other.statusCode);
         fieldSetFlags()[6] = true;
       }
-      if (isValidValue(fields()[7], other.referrer)) {
-        this.referrer = (CharSequence) data().deepCopy(fields()[7].schema(), other.referrer);
+      if (isValidValue(fields()[7], other.md5)) {
+        this.md5 = (CharSequence) data().deepCopy(fields()[7].schema(), other.md5);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.apk)) {
-        this.apk = (CharSequence) data().deepCopy(fields()[8].schema(), other.apk);
+      if (isValidValue(fields()[8], other.content)) {
+        this.content = (CharSequence) data().deepCopy(fields()[8].schema(), other.content);
         fieldSetFlags()[8] = true;
-      }
-      if (isValidValue(fields()[9], other.md5)) {
-        this.md5 = (CharSequence) data().deepCopy(fields()[9].schema(), other.md5);
-        fieldSetFlags()[9] = true;
       }
     }
 
@@ -647,56 +613,6 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
       return this;
     }
     
-    /** Gets the value of the 'referrer' field */
-    public CharSequence getReferrer() {
-      return referrer;
-    }
-    
-    /** Sets the value of the 'referrer' field */
-    public Builder setReferrer(CharSequence value) {
-      validate(fields()[7], value);
-      this.referrer = value;
-      fieldSetFlags()[7] = true;
-      return this; 
-    }
-    
-    /** Checks whether the 'referrer' field has been set */
-    public boolean hasReferrer() {
-      return fieldSetFlags()[7];
-    }
-    
-    /** Clears the value of the 'referrer' field */
-    public Builder clearReferrer() {
-      referrer = null;
-      fieldSetFlags()[7] = false;
-      return this;
-    }
-    
-    /** Gets the value of the 'apk' field */
-    public CharSequence getApk() {
-      return apk;
-    }
-    
-    /** Sets the value of the 'apk' field */
-    public Builder setApk(CharSequence value) {
-      validate(fields()[8], value);
-      this.apk = value;
-      fieldSetFlags()[8] = true;
-      return this; 
-    }
-    
-    /** Checks whether the 'apk' field has been set */
-    public boolean hasApk() {
-      return fieldSetFlags()[8];
-    }
-    
-    /** Clears the value of the 'apk' field */
-    public Builder clearApk() {
-      apk = null;
-      fieldSetFlags()[8] = false;
-      return this;
-    }
-    
     /** Gets the value of the 'md5' field */
     public CharSequence getMd5() {
       return md5;
@@ -704,21 +620,46 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'md5' field */
     public Builder setMd5(CharSequence value) {
-      validate(fields()[9], value);
+      validate(fields()[7], value);
       this.md5 = value;
-      fieldSetFlags()[9] = true;
+      fieldSetFlags()[7] = true;
       return this; 
     }
     
     /** Checks whether the 'md5' field has been set */
     public boolean hasMd5() {
-      return fieldSetFlags()[9];
+      return fieldSetFlags()[7];
     }
     
     /** Clears the value of the 'md5' field */
     public Builder clearMd5() {
       md5 = null;
-      fieldSetFlags()[9] = false;
+      fieldSetFlags()[7] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'content' field */
+    public CharSequence getContent() {
+      return content;
+    }
+    
+    /** Sets the value of the 'content' field */
+    public Builder setContent(CharSequence value) {
+      validate(fields()[8], value);
+      this.content = value;
+      fieldSetFlags()[8] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'content' field has been set */
+    public boolean hasContent() {
+      return fieldSetFlags()[8];
+    }
+    
+    /** Clears the value of the 'content' field */
+    public Builder clearContent() {
+      content = null;
+      fieldSetFlags()[8] = false;
       return this;
     }
     
@@ -733,9 +674,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         record.retriesSinceFetch = fieldSetFlags()[4] ? this.retriesSinceFetch : (Integer) defaultValue(fields()[4]);
         record.status = fieldSetFlags()[5] ? this.status : (CharSequence) defaultValue(fields()[5]);
         record.statusCode = fieldSetFlags()[6] ? this.statusCode : (CharSequence) defaultValue(fields()[6]);
-        record.referrer = fieldSetFlags()[7] ? this.referrer : (CharSequence) defaultValue(fields()[7]);
-        record.apk = fieldSetFlags()[8] ? this.apk : (CharSequence) defaultValue(fields()[8]);
-        record.md5 = fieldSetFlags()[9] ? this.md5 : (CharSequence) defaultValue(fields()[9]);
+        record.md5 = fieldSetFlags()[7] ? this.md5 : (CharSequence) defaultValue(fields()[7]);
+        record.content = fieldSetFlags()[8] ? this.content : (CharSequence) defaultValue(fields()[8]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
@@ -919,52 +859,6 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 	  }
 	
 				  /**
-	   * Gets the value of the 'referrer' field.
-		   */
-	  public CharSequence getReferrer() {
-	    throw new UnsupportedOperationException("Get is not supported on tombstones");
-	  }
-	
-	  /**
-	   * Sets the value of the 'referrer' field.
-		   * @param value the value to set.
-	   */
-	  public void setReferrer(CharSequence value) {
-	    throw new UnsupportedOperationException("Set is not supported on tombstones");
-	  }
-	  
-	  /**
-	   * Checks the dirty status of the 'referrer' field. A field is dirty if it represents a change that has not yet been written to the database.
-		   * @param value the value to set.
-	   */
-	  public boolean isReferrerDirty() {
-	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
-	  }
-	
-				  /**
-	   * Gets the value of the 'apk' field.
-		   */
-	  public CharSequence getApk() {
-	    throw new UnsupportedOperationException("Get is not supported on tombstones");
-	  }
-	
-	  /**
-	   * Sets the value of the 'apk' field.
-		   * @param value the value to set.
-	   */
-	  public void setApk(CharSequence value) {
-	    throw new UnsupportedOperationException("Set is not supported on tombstones");
-	  }
-	  
-	  /**
-	   * Checks the dirty status of the 'apk' field. A field is dirty if it represents a change that has not yet been written to the database.
-		   * @param value the value to set.
-	   */
-	  public boolean isApkDirty() {
-	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
-	  }
-	
-				  /**
 	   * Gets the value of the 'md5' field.
 		   */
 	  public CharSequence getMd5() {
@@ -984,6 +878,29 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 		   * @param value the value to set.
 	   */
 	  public boolean isMd5Dirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'content' field.
+		   */
+	  public CharSequence getContent() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'content' field.
+		   * @param value the value to set.
+	   */
+	  public void setContent(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'content' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isContentDirty() {
 	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
 	  }
 	

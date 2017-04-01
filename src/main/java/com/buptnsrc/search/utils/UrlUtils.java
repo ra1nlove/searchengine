@@ -24,7 +24,7 @@ public class UrlUtils {
                 try {
                     URL newurl = new URL(url, newlink);
                     if (urlFilter(newurl.toString())) {
-                        urls.add(newurl.toString());
+                        urls.add(newurl.toString().replaceAll("\\s",""));
                     }
                 }catch (Exception e ){
                 }
