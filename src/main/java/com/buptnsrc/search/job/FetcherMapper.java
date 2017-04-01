@@ -3,10 +3,11 @@ package com.buptnsrc.search.job;
 import com.buptnsrc.search.parse.UrlInfo;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
+import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnels;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.gora.mapreduce.GoraMapper;
-import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,7 +18,9 @@ import java.util.concurrent.CountDownLatch;
 /**
  * Created by rain on 17-2-24.
  */
-public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
+public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
+
+    BloomFilter<byte[]> bloomFilter  = BloomFilter.create(Funnels.byteArrayFunnel(),1000000);
 
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
@@ -53,18 +56,17 @@ public class FetcherMapper extends GoraMapper<String,WebPage, Text, WebPage> {
                             context.getCounter("FetchJob","success").increment(1);
                             List<WebPage> pages = UrlInfo.getUrl(page, result);
                             for (WebPage newpage : pages) {
-                                context.write(new Text("1000000000"), newpage);
+                                context.getCounter("FetchJob", "newall").increment(1);
+                                if(bloomFilter.mightContain(newpage.getUrl().toString().getBytes())){
+                                    continue;
+                                }else{
+                                    bloomFilter.put(newpage.getUrl().toString().getBytes());
+                                    context.write(newpage.getUrl().toString(), newpage);
+                                    context.getCounter("FetchJob", "new").increment(1);
+                                }
                             }
                         }
-                        char[] dirty = new char[9];
-                        for(int i=0;i<9;i++) {
-                            if (page.isDirty(i)) {
-                                dirty[i] = '1';
-                            } else {
-                                dirty[i] = '0';
-                            }
-                        }
-                        context.write(new Text(String.valueOf(dirty)), page);
+                        context.write(page.getUrl().toString(), page);
                     }else{
                         break;
                     }

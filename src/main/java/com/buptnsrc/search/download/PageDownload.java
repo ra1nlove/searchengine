@@ -106,7 +106,7 @@ public class PageDownload {
                 page.setStatus("fetch");
             }
         }
-
+        page.setFetchTime(System.currentTimeMillis());
         return result;
 
     }

@@ -6,6 +6,7 @@ import org.apache.avro.util.Utf8;
 import org.apache.gora.filter.FilterOp;
 import org.apache.gora.filter.SingleFieldValueFilter;
 import org.apache.gora.mapreduce.GoraMapper;
+import org.apache.gora.mapreduce.GoraOutputFormat;
 import org.apache.gora.mapreduce.GoraReducer;
 import org.apache.gora.query.Query;
 import org.apache.gora.store.DataStore;
@@ -13,6 +14,7 @@ import org.apache.gora.store.DataStoreFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.Reducer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,8 +56,12 @@ public class FetcherJob {
         filter.setOperands(list);
         query.setFilter(filter);
 
-        GoraMapper.initMapperJob(job, query, dataStore, Text.class, WebPage.class,FetcherMapper.class ,  true);
-        GoraReducer.initReducerJob(job, dataStore, FetcherReducer.class);
+        GoraMapper.initMapperJob(job, query, dataStore,String.class,WebPage.class,FetcherMapper.class ,  true);
+
+        job.setOutputFormatClass(GoraOutputFormat.class);
+        GoraOutputFormat.setOutput(job,dataStore,true);
+        job.setReducerClass(Reducer.class);
+        job.setNumReduceTasks(0);
 
         job.waitForCompletion(true);
         job.killJob();

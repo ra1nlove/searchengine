@@ -9,7 +9,7 @@ public class Test {
 
     public static void main(String[] args) throws Exception{
         WebPage page = new WebPage();
-        page.setUrl("http://zhuanlan.sina.com.cn/");
+        page.setUrl("http://www.miibeian.gov.cn");
         System.out.println(PageDownload.download(page));
     }
 
