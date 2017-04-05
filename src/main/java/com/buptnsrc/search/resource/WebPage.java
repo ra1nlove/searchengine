@@ -7,7 +7,7 @@ package com.buptnsrc.search.resource;
 @SuppressWarnings("all")
 /** WebPage is the primary data structure  */
 public class WebPage extends org.apache.gora.persistency.impl.PersistentBase implements org.apache.avro.specific.SpecificRecord, org.apache.gora.persistency.Persistent {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null}],\"default\":null}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"score\",\"type\":\"float\",\"default\":1}],\"default\":null}");
 
   /** Enum containing all data bean's fields. */
   public static enum Field {
@@ -20,6 +20,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     STATUS_CODE(6, "statusCode"),
     MD5(7, "md5"),
     CONTENT(8, "content"),
+    OUTLINKS(9, "outlinks"),
+    SCORE(10, "score"),
     ;
     /**
      * Field's index.
@@ -67,6 +69,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   "statusCode",
   "md5",
   "content",
+  "outlinks",
+  "score",
   };
 
   /**
@@ -86,6 +90,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   private CharSequence statusCode;
   private CharSequence md5;
   private CharSequence content;
+  private java.util.Map<CharSequence,CharSequence> outlinks;
+  private float score;
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call. 
   public Object get(int field$) {
@@ -99,6 +105,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 6: return statusCode;
     case 7: return md5;
     case 8: return content;
+    case 9: return outlinks;
+    case 10: return score;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -116,6 +124,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 6: statusCode = (CharSequence)(value); break;
     case 7: md5 = (CharSequence)(value); break;
     case 8: content = (CharSequence)(value); break;
+    case 9: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
+    case 10: score = (Float)(value); break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -336,6 +346,54 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     return isDirty(8);
   }
 
+  /**
+   * Gets the value of the 'outlinks' field.
+   */
+  public java.util.Map<CharSequence,CharSequence> getOutlinks() {
+    return outlinks;
+  }
+
+  /**
+   * Sets the value of the 'outlinks' field.
+   * @param value the value to set.
+   */
+  public void setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
+    this.outlinks = (value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper(value);
+    setDirty(9);
+  }
+  
+  /**
+   * Checks the dirty status of the 'outlinks' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isOutlinksDirty() {
+    return isDirty(9);
+  }
+
+  /**
+   * Gets the value of the 'score' field.
+   */
+  public Float getScore() {
+    return score;
+  }
+
+  /**
+   * Sets the value of the 'score' field.
+   * @param value the value to set.
+   */
+  public void setScore(Float value) {
+    this.score = value;
+    setDirty(10);
+  }
+  
+  /**
+   * Checks the dirty status of the 'score' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isScoreDirty() {
+    return isDirty(10);
+  }
+
   /** Creates a new WebPage RecordBuilder */
   public static Builder newBuilder() {
     return new Builder();
@@ -389,6 +447,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     private CharSequence statusCode;
     private CharSequence md5;
     private CharSequence content;
+    private java.util.Map<CharSequence,CharSequence> outlinks;
+    private float score;
 
     /** Creates a new Builder */
     private Builder() {
@@ -438,6 +498,14 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
       if (isValidValue(fields()[8], other.content)) {
         this.content = (CharSequence) data().deepCopy(fields()[8].schema(), other.content);
         fieldSetFlags()[8] = true;
+      }
+      if (isValidValue(fields()[9], other.outlinks)) {
+        this.outlinks = (java.util.Map<CharSequence,CharSequence>) data().deepCopy(fields()[9].schema(), other.outlinks);
+        fieldSetFlags()[9] = true;
+      }
+      if (isValidValue(fields()[10], other.score)) {
+        this.score = (Float) data().deepCopy(fields()[10].schema(), other.score);
+        fieldSetFlags()[10] = true;
       }
     }
 
@@ -663,6 +731,55 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
       return this;
     }
     
+    /** Gets the value of the 'outlinks' field */
+    public java.util.Map<CharSequence,CharSequence> getOutlinks() {
+      return outlinks;
+    }
+    
+    /** Sets the value of the 'outlinks' field */
+    public Builder setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
+      validate(fields()[9], value);
+      this.outlinks = value;
+      fieldSetFlags()[9] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'outlinks' field has been set */
+    public boolean hasOutlinks() {
+      return fieldSetFlags()[9];
+    }
+    
+    /** Clears the value of the 'outlinks' field */
+    public Builder clearOutlinks() {
+      outlinks = null;
+      fieldSetFlags()[9] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'score' field */
+    public Float getScore() {
+      return score;
+    }
+    
+    /** Sets the value of the 'score' field */
+    public Builder setScore(float value) {
+      validate(fields()[10], value);
+      this.score = value;
+      fieldSetFlags()[10] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'score' field has been set */
+    public boolean hasScore() {
+      return fieldSetFlags()[10];
+    }
+    
+    /** Clears the value of the 'score' field */
+    public Builder clearScore() {
+      fieldSetFlags()[10] = false;
+      return this;
+    }
+    
     @Override
     public WebPage build() {
       try {
@@ -676,6 +793,8 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         record.statusCode = fieldSetFlags()[6] ? this.statusCode : (CharSequence) defaultValue(fields()[6]);
         record.md5 = fieldSetFlags()[7] ? this.md5 : (CharSequence) defaultValue(fields()[7]);
         record.content = fieldSetFlags()[8] ? this.content : (CharSequence) defaultValue(fields()[8]);
+        record.outlinks = fieldSetFlags()[9] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[9]));
+        record.score = fieldSetFlags()[10] ? this.score : (Float) defaultValue(fields()[10]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
@@ -901,6 +1020,52 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 		   * @param value the value to set.
 	   */
 	  public boolean isContentDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'outlinks' field.
+		   */
+	  public java.util.Map<CharSequence,CharSequence> getOutlinks() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'outlinks' field.
+		   * @param value the value to set.
+	   */
+	  public void setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'outlinks' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isOutlinksDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'score' field.
+		   */
+	  public Float getScore() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'score' field.
+		   * @param value the value to set.
+	   */
+	  public void setScore(Float value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'score' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isScoreDirty() {
 	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
 	  }
 	

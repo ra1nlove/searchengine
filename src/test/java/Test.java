@@ -1,5 +1,9 @@
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
+import org.apache.gora.query.Query;
+import org.apache.gora.store.DataStore;
+import org.apache.gora.store.DataStoreFactory;
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
 
 /**
@@ -8,9 +12,9 @@ import org.apache.hadoop.io.IntWritable;
 public class Test {
 
     public static void main(String[] args) throws Exception{
-        WebPage page = new WebPage();
-        page.setUrl("http://www.miibeian.gov.cn");
-        System.out.println(PageDownload.download(page));
+        DataStore<String,WebPage> dataStore = DataStoreFactory.getDataStore(String.class, WebPage.class, new Configuration());
+        WebPage page = dataStore.get("http://www.sina.com.cn/");
+        System.out.print(page.getScore());
     }
 
 }

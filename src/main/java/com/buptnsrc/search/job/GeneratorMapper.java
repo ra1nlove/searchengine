@@ -12,7 +12,9 @@ public class GeneratorMapper extends GoraMapper<String,WebPage,Text,WebPage>{
 
     @Override
     public void map(String url,WebPage page,Context context) throws IOException,InterruptedException {
+
         if(nums<0) return;
+
         CharSequence status = page.getStatus();
         long fetchtime = page.getFetchTime();
         int inteval = page.getFetchInterval();

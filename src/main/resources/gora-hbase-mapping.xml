@@ -34,6 +34,8 @@
     <field name="fetchTime" family="common" qualifier="fetchtime"/>
     <field name="md5" family="common" qualifier="md5"/>
     <field name="content" family="common" qualifier="content"/>
+    <field name="outlinks" family="outlinks"/>
+    <field name="score" family="common" qualifier="score"/>
   </class>
 
 </gora-otd>

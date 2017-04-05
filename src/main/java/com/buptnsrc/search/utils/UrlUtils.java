@@ -6,7 +6,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,21 +16,22 @@ import java.util.Set;
  */
 public class UrlUtils {
 
-    public static Set<String> getAllUrls(String baseurl, String content) throws Exception{
-        Set<String> urls = new HashSet<String>();
-            URL url = new URL(baseurl);
-            Document doc = Jsoup.parse(content);
-            Elements links = doc.select("a");
-            for (Element link : links) {
-                String newlink = link.attr("href");
-                try {
-                    URL newurl = new URL(url, newlink);
-                    if (urlFilter(newurl.toString())) {
-                        urls.add(newurl.toString().replaceAll("\\s",""));
-                    }
-                }catch (Exception e ){
+    public static Map<CharSequence,CharSequence> getAllUrls(String baseurl, String content) throws Exception{
+        Map<CharSequence,CharSequence> urls = new HashMap<CharSequence,CharSequence>();
+        URL url = new URL(baseurl);
+        Document doc = Jsoup.parse(content);
+        Elements links = doc.select("a");
+        for (Element link : links) {
+            String newlink = link.attr("href");
+            String achor = link.text();
+            try {
+                URL newurl = new URL(url, newlink);
+                if (urlFilter(newurl.toString())) {
+                    urls.put(newurl.toString().replaceAll("\\s",""),achor);
                 }
+            }catch (Exception e ){
             }
+        }
         return urls;
     }
 

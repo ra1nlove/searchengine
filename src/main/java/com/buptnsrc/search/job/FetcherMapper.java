@@ -1,8 +1,8 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.parse.UrlInfo;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
+import com.buptnsrc.search.utils.UrlUtils;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import org.apache.commons.logging.Log;
@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.gora.mapreduce.GoraMapper;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CountDownLatch;
@@ -54,17 +54,20 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                             String result = PageDownload.download(page);
                         if (result != null) {
                             context.getCounter("FetchJob","success").increment(1);
-                            List<WebPage> pages = UrlInfo.getUrl(page, result);
-                            for (WebPage newpage : pages) {
+                            Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
+                            for (CharSequence newurl : pages.keySet()) {
                                 context.getCounter("FetchJob", "newall").increment(1);
-                                if(bloomFilter.mightContain(newpage.getUrl().toString().getBytes())){
+                                if(bloomFilter.mightContain(newurl.toString().getBytes())){
                                     continue;
                                 }else{
-                                    bloomFilter.put(newpage.getUrl().toString().getBytes());
-                                    context.write(newpage.getUrl().toString(), newpage);
+                                    bloomFilter.put(newurl.toString().getBytes());
+                                    WebPage newpage = new WebPage();
+                                    newpage.setUrl(newurl);
+                                    context.write(newurl.toString(), newpage);
                                     context.getCounter("FetchJob", "new").increment(1);
                                 }
                             }
+                            page.setOutlinks(pages);
                         }
                         context.write(page.getUrl().toString(), page);
                     }else{
