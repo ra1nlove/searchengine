@@ -7,7 +7,7 @@ package com.buptnsrc.search.resource;
 @SuppressWarnings("all")
 /** WebPage is the primary data structure  */
 public class WebPage extends org.apache.gora.persistency.impl.PersistentBase implements org.apache.avro.specific.SpecificRecord, org.apache.gora.persistency.Persistent {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"score\",\"type\":\"float\",\"default\":1}],\"default\":null}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"keywords\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"h1\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"score\",\"type\":\"float\",\"default\":1}],\"default\":null}");
 
   /** Enum containing all data bean's fields. */
   public static enum Field {
@@ -19,9 +19,12 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     STATUS(5, "status"),
     STATUS_CODE(6, "statusCode"),
     MD5(7, "md5"),
-    CONTENT(8, "content"),
-    OUTLINKS(9, "outlinks"),
-    SCORE(10, "score"),
+    KEYWORDS(8, "keywords"),
+    DESCRIPTION(9, "description"),
+    H1(10, "h1"),
+    CONTENT(11, "content"),
+    OUTLINKS(12, "outlinks"),
+    SCORE(13, "score"),
     ;
     /**
      * Field's index.
@@ -68,6 +71,9 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   "status",
   "statusCode",
   "md5",
+  "keywords",
+  "description",
+  "h1",
   "content",
   "outlinks",
   "score",
@@ -89,6 +95,9 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   private CharSequence status;
   private CharSequence statusCode;
   private CharSequence md5;
+  private CharSequence keywords;
+  private CharSequence description;
+  private CharSequence h1;
   private CharSequence content;
   private java.util.Map<CharSequence,CharSequence> outlinks;
   private float score;
@@ -104,9 +113,12 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 5: return status;
     case 6: return statusCode;
     case 7: return md5;
-    case 8: return content;
-    case 9: return outlinks;
-    case 10: return score;
+    case 8: return keywords;
+    case 9: return description;
+    case 10: return h1;
+    case 11: return content;
+    case 12: return outlinks;
+    case 13: return score;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -123,9 +135,12 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 5: status = (CharSequence)(value); break;
     case 6: statusCode = (CharSequence)(value); break;
     case 7: md5 = (CharSequence)(value); break;
-    case 8: content = (CharSequence)(value); break;
-    case 9: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
-    case 10: score = (Float)(value); break;
+    case 8: keywords = (CharSequence)(value); break;
+    case 9: description = (CharSequence)(value); break;
+    case 10: h1 = (CharSequence)(value); break;
+    case 11: content = (CharSequence)(value); break;
+    case 12: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
+    case 13: score = (Float)(value); break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -323,6 +338,78 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   }
 
   /**
+   * Gets the value of the 'keywords' field.
+   */
+  public CharSequence getKeywords() {
+    return keywords;
+  }
+
+  /**
+   * Sets the value of the 'keywords' field.
+   * @param value the value to set.
+   */
+  public void setKeywords(CharSequence value) {
+    this.keywords = value;
+    setDirty(8);
+  }
+  
+  /**
+   * Checks the dirty status of the 'keywords' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isKeywordsDirty() {
+    return isDirty(8);
+  }
+
+  /**
+   * Gets the value of the 'description' field.
+   */
+  public CharSequence getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets the value of the 'description' field.
+   * @param value the value to set.
+   */
+  public void setDescription(CharSequence value) {
+    this.description = value;
+    setDirty(9);
+  }
+  
+  /**
+   * Checks the dirty status of the 'description' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isDescriptionDirty() {
+    return isDirty(9);
+  }
+
+  /**
+   * Gets the value of the 'h1' field.
+   */
+  public CharSequence getH1() {
+    return h1;
+  }
+
+  /**
+   * Sets the value of the 'h1' field.
+   * @param value the value to set.
+   */
+  public void setH1(CharSequence value) {
+    this.h1 = value;
+    setDirty(10);
+  }
+  
+  /**
+   * Checks the dirty status of the 'h1' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isH1Dirty() {
+    return isDirty(10);
+  }
+
+  /**
    * Gets the value of the 'content' field.
    */
   public CharSequence getContent() {
@@ -335,7 +422,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setContent(CharSequence value) {
     this.content = value;
-    setDirty(8);
+    setDirty(11);
   }
   
   /**
@@ -343,7 +430,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isContentDirty() {
-    return isDirty(8);
+    return isDirty(11);
   }
 
   /**
@@ -359,7 +446,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
     this.outlinks = (value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper(value);
-    setDirty(9);
+    setDirty(12);
   }
   
   /**
@@ -367,7 +454,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isOutlinksDirty() {
-    return isDirty(9);
+    return isDirty(12);
   }
 
   /**
@@ -383,7 +470,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setScore(Float value) {
     this.score = value;
-    setDirty(10);
+    setDirty(13);
   }
   
   /**
@@ -391,7 +478,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isScoreDirty() {
-    return isDirty(10);
+    return isDirty(13);
   }
 
   /** Creates a new WebPage RecordBuilder */
@@ -446,6 +533,9 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     private CharSequence status;
     private CharSequence statusCode;
     private CharSequence md5;
+    private CharSequence keywords;
+    private CharSequence description;
+    private CharSequence h1;
     private CharSequence content;
     private java.util.Map<CharSequence,CharSequence> outlinks;
     private float score;
@@ -495,17 +585,29 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         this.md5 = (CharSequence) data().deepCopy(fields()[7].schema(), other.md5);
         fieldSetFlags()[7] = true;
       }
-      if (isValidValue(fields()[8], other.content)) {
-        this.content = (CharSequence) data().deepCopy(fields()[8].schema(), other.content);
+      if (isValidValue(fields()[8], other.keywords)) {
+        this.keywords = (CharSequence) data().deepCopy(fields()[8].schema(), other.keywords);
         fieldSetFlags()[8] = true;
       }
-      if (isValidValue(fields()[9], other.outlinks)) {
-        this.outlinks = (java.util.Map<CharSequence,CharSequence>) data().deepCopy(fields()[9].schema(), other.outlinks);
+      if (isValidValue(fields()[9], other.description)) {
+        this.description = (CharSequence) data().deepCopy(fields()[9].schema(), other.description);
         fieldSetFlags()[9] = true;
       }
-      if (isValidValue(fields()[10], other.score)) {
-        this.score = (Float) data().deepCopy(fields()[10].schema(), other.score);
+      if (isValidValue(fields()[10], other.h1)) {
+        this.h1 = (CharSequence) data().deepCopy(fields()[10].schema(), other.h1);
         fieldSetFlags()[10] = true;
+      }
+      if (isValidValue(fields()[11], other.content)) {
+        this.content = (CharSequence) data().deepCopy(fields()[11].schema(), other.content);
+        fieldSetFlags()[11] = true;
+      }
+      if (isValidValue(fields()[12], other.outlinks)) {
+        this.outlinks = (java.util.Map<CharSequence,CharSequence>) data().deepCopy(fields()[12].schema(), other.outlinks);
+        fieldSetFlags()[12] = true;
+      }
+      if (isValidValue(fields()[13], other.score)) {
+        this.score = (Float) data().deepCopy(fields()[13].schema(), other.score);
+        fieldSetFlags()[13] = true;
       }
     }
 
@@ -706,6 +808,81 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
       return this;
     }
     
+    /** Gets the value of the 'keywords' field */
+    public CharSequence getKeywords() {
+      return keywords;
+    }
+    
+    /** Sets the value of the 'keywords' field */
+    public Builder setKeywords(CharSequence value) {
+      validate(fields()[8], value);
+      this.keywords = value;
+      fieldSetFlags()[8] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'keywords' field has been set */
+    public boolean hasKeywords() {
+      return fieldSetFlags()[8];
+    }
+    
+    /** Clears the value of the 'keywords' field */
+    public Builder clearKeywords() {
+      keywords = null;
+      fieldSetFlags()[8] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'description' field */
+    public CharSequence getDescription() {
+      return description;
+    }
+    
+    /** Sets the value of the 'description' field */
+    public Builder setDescription(CharSequence value) {
+      validate(fields()[9], value);
+      this.description = value;
+      fieldSetFlags()[9] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'description' field has been set */
+    public boolean hasDescription() {
+      return fieldSetFlags()[9];
+    }
+    
+    /** Clears the value of the 'description' field */
+    public Builder clearDescription() {
+      description = null;
+      fieldSetFlags()[9] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'h1' field */
+    public CharSequence getH1() {
+      return h1;
+    }
+    
+    /** Sets the value of the 'h1' field */
+    public Builder setH1(CharSequence value) {
+      validate(fields()[10], value);
+      this.h1 = value;
+      fieldSetFlags()[10] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'h1' field has been set */
+    public boolean hasH1() {
+      return fieldSetFlags()[10];
+    }
+    
+    /** Clears the value of the 'h1' field */
+    public Builder clearH1() {
+      h1 = null;
+      fieldSetFlags()[10] = false;
+      return this;
+    }
+    
     /** Gets the value of the 'content' field */
     public CharSequence getContent() {
       return content;
@@ -713,21 +890,21 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'content' field */
     public Builder setContent(CharSequence value) {
-      validate(fields()[8], value);
+      validate(fields()[11], value);
       this.content = value;
-      fieldSetFlags()[8] = true;
+      fieldSetFlags()[11] = true;
       return this; 
     }
     
     /** Checks whether the 'content' field has been set */
     public boolean hasContent() {
-      return fieldSetFlags()[8];
+      return fieldSetFlags()[11];
     }
     
     /** Clears the value of the 'content' field */
     public Builder clearContent() {
       content = null;
-      fieldSetFlags()[8] = false;
+      fieldSetFlags()[11] = false;
       return this;
     }
     
@@ -738,21 +915,21 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'outlinks' field */
     public Builder setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
-      validate(fields()[9], value);
+      validate(fields()[12], value);
       this.outlinks = value;
-      fieldSetFlags()[9] = true;
+      fieldSetFlags()[12] = true;
       return this; 
     }
     
     /** Checks whether the 'outlinks' field has been set */
     public boolean hasOutlinks() {
-      return fieldSetFlags()[9];
+      return fieldSetFlags()[12];
     }
     
     /** Clears the value of the 'outlinks' field */
     public Builder clearOutlinks() {
       outlinks = null;
-      fieldSetFlags()[9] = false;
+      fieldSetFlags()[12] = false;
       return this;
     }
     
@@ -763,20 +940,20 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'score' field */
     public Builder setScore(float value) {
-      validate(fields()[10], value);
+      validate(fields()[13], value);
       this.score = value;
-      fieldSetFlags()[10] = true;
+      fieldSetFlags()[13] = true;
       return this; 
     }
     
     /** Checks whether the 'score' field has been set */
     public boolean hasScore() {
-      return fieldSetFlags()[10];
+      return fieldSetFlags()[13];
     }
     
     /** Clears the value of the 'score' field */
     public Builder clearScore() {
-      fieldSetFlags()[10] = false;
+      fieldSetFlags()[13] = false;
       return this;
     }
     
@@ -792,9 +969,12 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         record.status = fieldSetFlags()[5] ? this.status : (CharSequence) defaultValue(fields()[5]);
         record.statusCode = fieldSetFlags()[6] ? this.statusCode : (CharSequence) defaultValue(fields()[6]);
         record.md5 = fieldSetFlags()[7] ? this.md5 : (CharSequence) defaultValue(fields()[7]);
-        record.content = fieldSetFlags()[8] ? this.content : (CharSequence) defaultValue(fields()[8]);
-        record.outlinks = fieldSetFlags()[9] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[9]));
-        record.score = fieldSetFlags()[10] ? this.score : (Float) defaultValue(fields()[10]);
+        record.keywords = fieldSetFlags()[8] ? this.keywords : (CharSequence) defaultValue(fields()[8]);
+        record.description = fieldSetFlags()[9] ? this.description : (CharSequence) defaultValue(fields()[9]);
+        record.h1 = fieldSetFlags()[10] ? this.h1 : (CharSequence) defaultValue(fields()[10]);
+        record.content = fieldSetFlags()[11] ? this.content : (CharSequence) defaultValue(fields()[11]);
+        record.outlinks = fieldSetFlags()[12] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[12]));
+        record.score = fieldSetFlags()[13] ? this.score : (Float) defaultValue(fields()[13]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
@@ -997,6 +1177,75 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 		   * @param value the value to set.
 	   */
 	  public boolean isMd5Dirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'keywords' field.
+		   */
+	  public CharSequence getKeywords() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'keywords' field.
+		   * @param value the value to set.
+	   */
+	  public void setKeywords(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'keywords' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isKeywordsDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'description' field.
+		   */
+	  public CharSequence getDescription() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'description' field.
+		   * @param value the value to set.
+	   */
+	  public void setDescription(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'description' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isDescriptionDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'h1' field.
+		   */
+	  public CharSequence getH1() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'h1' field.
+		   * @param value the value to set.
+	   */
+	  public void setH1(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'h1' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isH1Dirty() {
 	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
 	  }
 	

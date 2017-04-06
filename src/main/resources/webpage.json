@@ -12,6 +12,9 @@
     {"name": "status", "type": ["null","string"], "default":null},
     {"name": "statusCode", "type": ["null","string"], "default":null},
     {"name": "md5", "type": ["null","string"], "default":null},
+    {"name": "keywords", "type": ["null","string"], "default":null},
+    {"name": "description", "type": ["null","string"], "default":null},
+    {"name": "h1", "type": ["null","string"], "default":null},
     {"name": "content", "type": ["null","string"], "default":null},
     {"name": "outlinks","type": {"type": "map","values": ["null","string"]},"default":{}},
     {"name": "score", "type": "float", "default":1}

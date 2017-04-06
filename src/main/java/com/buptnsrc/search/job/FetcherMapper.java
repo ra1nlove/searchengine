@@ -2,6 +2,7 @@ package com.buptnsrc.search.job;
 
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
+import com.buptnsrc.search.utils.StringTool;
 import com.buptnsrc.search.utils.UrlUtils;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
@@ -54,20 +55,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                             String result = PageDownload.download(page);
                         if (result != null) {
                             context.getCounter("FetchJob","success").increment(1);
-                            Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
-                            for (CharSequence newurl : pages.keySet()) {
-                                context.getCounter("FetchJob", "newall").increment(1);
-                                if(bloomFilter.mightContain(newurl.toString().getBytes())){
-                                    continue;
-                                }else{
-                                    bloomFilter.put(newurl.toString().getBytes());
-                                    WebPage newpage = new WebPage();
-                                    newpage.setUrl(newurl);
-                                    context.write(newurl.toString(), newpage);
-                                    context.getCounter("FetchJob", "new").increment(1);
-                                }
-                            }
-                            page.setOutlinks(pages);
+                            parse(page,result,context);
                         }
                         context.write(page.getUrl().toString(), page);
                     }else{
@@ -98,4 +86,34 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
             cleanup(context);
         }
     }
+
+    public void parse(WebPage page,String result,Context context) throws Exception{
+
+        String keywords = StringTool.getMeta(result,"keywords");
+        page.setKeywords(keywords);
+
+        String des = StringTool.getMeta(result,"description");
+        page.setDescription(des);
+
+        String h1 = StringTool.getH1(result);
+        page.setH1(h1);
+
+        Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
+        page.setOutlinks(pages);
+
+        for (CharSequence newurl : pages.keySet()) {
+            context.getCounter("FetchJob", "newall").increment(1);
+            if(bloomFilter.mightContain(newurl.toString().getBytes())){
+                continue;
+            }else{
+                bloomFilter.put(newurl.toString().getBytes());
+                WebPage newpage = new WebPage();
+                newpage.setUrl(newurl);
+                context.write(newurl.toString(), newpage);
+                context.getCounter("FetchJob", "new").increment(1);
+            }
+        }
+
+    }
+
 }

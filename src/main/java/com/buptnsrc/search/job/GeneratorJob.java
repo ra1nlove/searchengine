@@ -52,6 +52,7 @@ public class GeneratorJob {
         list.add(new Utf8("end"));
         filter.setOperands(list);
         query.setFilter(filter);
+
         GoraMapper.initMapperJob(job,query,dataStore, Text.class,WebPage.class,GeneratorMapper.class,true);
         GoraReducer.initReducerJob(job,dataStore,GeneratorReducer.class);
 

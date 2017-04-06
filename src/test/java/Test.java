@@ -13,7 +13,7 @@ public class Test {
 
     public static void main(String[] args) throws Exception{
         DataStore<String,WebPage> dataStore = DataStoreFactory.getDataStore(String.class, WebPage.class, new Configuration());
-        WebPage page = dataStore.get("http://www.sina.com.cn/");
+        WebPage page = dataStore.get("http://news.sina.com.cn/china/xlxw/2017-04-05/doc-ifyecezv2212729.shtml");
         System.out.print(page.getScore());
     }
 

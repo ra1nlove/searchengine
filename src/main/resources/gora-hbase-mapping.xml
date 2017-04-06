@@ -33,6 +33,9 @@
     <field name="retriesSinceFetch" family="common" qualifier="retriestimes"/>
     <field name="fetchTime" family="common" qualifier="fetchtime"/>
     <field name="md5" family="common" qualifier="md5"/>
+    <field name="keywords" family="common" qualifier="keywords"/>
+    <field name="description" family="common" qualifier="description"/>
+    <field name="h1" family="common" qualifier="h1"/>
     <field name="content" family="common" qualifier="content"/>
     <field name="outlinks" family="outlinks"/>
     <field name="score" family="common" qualifier="score"/>

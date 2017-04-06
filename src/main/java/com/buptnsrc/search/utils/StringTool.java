@@ -2,6 +2,11 @@ package com.buptnsrc.search.utils;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import scala.collection.IndexedSeqLike;
 
 import java.security.MessageDigest;
 import java.util.regex.Matcher;
@@ -28,31 +33,33 @@ public class StringTool {
     }
 
     public static String getContext(String htmlStr){
-
         if(htmlStr == null){
             return null;
         }
-
-        String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式
-
-        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE);
-        Matcher m_script=p_script.matcher(htmlStr);
-        htmlStr=m_script.replaceAll(""); //过滤script标签
-
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);
-        Matcher m_style=p_style.matcher(htmlStr);
-        htmlStr=m_style.replaceAll(""); //过滤style标签
-
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);
-        Matcher m_html=p_html.matcher(htmlStr);
-        htmlStr=m_html.replaceAll(""); //过滤html标签
-
+        Document doc = Jsoup.parse(htmlStr);
+        htmlStr = doc.body().text();
         htmlStr = htmlStr.replaceAll("\\s*", "");
-
         return htmlStr.trim(); //返回文本字符串
+    }
 
+    public static String getMeta(String str,String name){
+        String result = "";
+        Document doc = Jsoup.parse(str);
+        Elements metas =doc.head().getElementsByAttributeValue("name",name);
+        for(Element e : metas){
+            result = e.attr("content");
+        }
+        return result;
+    }
+
+    public static String getH1(String str){
+        String result = "";
+        Document doc = Jsoup.parse(str);
+        Elements h1 = doc.select("h1");
+        for(Element e : h1){
+            result = e.text();
+        }
+        return result;
     }
 
 }
