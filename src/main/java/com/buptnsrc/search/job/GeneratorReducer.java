@@ -15,11 +15,15 @@ public class GeneratorReducer extends GoraReducer<Text, WebPage, String, WebPage
     @Override
     public void reduce(Text url, Iterable<WebPage> pages, Context context) throws IOException, InterruptedException{
         for(WebPage page : pages){
-            page.clearDirty();
-            page.setStatus("generate");
-            context.getCounter("generator","urls").increment(1);
+            if(page.getStatus()!=null && "index".equals(page.getStatus().toString())){
+                page.setStatus("fetch");
+            }else {
+                page.clearDirty();
+                page.setStatus("generate");
+                context.getCounter("generator", "urls").increment(1);
+                log.info("generate url : " + url.toString());
+            }
             context.write(url.toString(), page);
-            log.info("generate url : "+url.toString());
         }
     }
 

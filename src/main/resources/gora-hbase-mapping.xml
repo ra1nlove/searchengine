@@ -35,10 +35,13 @@
     <field name="md5" family="common" qualifier="md5"/>
     <field name="keywords" family="common" qualifier="keywords"/>
     <field name="description" family="common" qualifier="description"/>
+    <field name="title" family="common" qualifier="title"/>
     <field name="h1" family="common" qualifier="h1"/>
     <field name="content" family="common" qualifier="content"/>
+    <field name="relate" family="common" qualifier="relate"/>
+    <field name="bayes" family="common" qualifier="bayes"/>
     <field name="outlinks" family="outlinks"/>
-    <field name="score" family="common" qualifier="score"/>
+    <field name="pagerank" family="common" qualifier="pagerank"/>
   </class>
 
 </gora-otd>

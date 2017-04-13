@@ -17,10 +17,14 @@ public class IndexMapper extends GoraMapper<String,WebPage, NullWritable ,MapWri
     @Override
     public void map(String url,WebPage page,Context context) throws IOException,InterruptedException {
         MapWritable doc = new MapWritable();
+        doc.put(new Text("title"),new Text(page.getTitle().toString()));
         doc.put(new Text("url"),new Text(url));
+        doc.put(new Text("desc"),new Text(page.getDescription().toString()));
+        doc.put(new Text("keyword"),new Text(page.getKeywords().toString()));
+        doc.put(new Text("h1"),new Text(page.getKeywords().toString()));
         String content = page.getContent().toString();
-        context.getCounter("IndexJob", "index").increment(1);
         doc.put(new Text("content"),new Text(StringTool.getContext(content)));
+        context.getCounter("IndexJob", "index").increment(1);
         context.write(NullWritable.get(),doc);
     }
 

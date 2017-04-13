@@ -19,7 +19,7 @@ public class PageRankMapper extends GoraMapper<String,WebPage,Text,FloatWritable
         int linknumber = outlinks.size();
         if(linknumber>0){
             for(CharSequence outlink : outlinks.keySet()){
-                float score = page.getScore()/linknumber;
+                float score = page.getPagerank()/linknumber;
                 context.write(new Text(outlink.toString()),new FloatWritable(score));
             }
         }

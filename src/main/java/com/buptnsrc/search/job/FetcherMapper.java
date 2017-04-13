@@ -1,5 +1,6 @@
 package com.buptnsrc.search.job;
 
+import com.buptnsrc.search.Classify.WebPageClassify;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.StringTool;
@@ -26,11 +27,9 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
     private final CountDownLatch endGate = new CountDownLatch(20);
-    private int nums = 5000;
 
     private void addUrls(Context context)throws InterruptedException, IOException {
         while(context.nextKeyValue()){
-            if(nums--<0) return;
             pages.add(context.getCurrentValue());
             context.getCounter("FetchJob","all").increment(1);
         }
@@ -52,10 +51,17 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 while (true) {
                     WebPage page = pages.poll();
                     if (page != null){
-                            String result = PageDownload.download(page);
+                        String result = PageDownload.download(page);
                         if (result != null) {
                             context.getCounter("FetchJob","success").increment(1);
-                            parse(page,result,context);
+                            Boolean topic = WebPageClassify.classify(result);
+                            if(topic) {
+                                parse(page, result, context);
+                                context.getCounter("FetchJob","topic").increment(1);
+                            }else{
+                                page.clearDirty("content");
+                                page.setStatus("end");
+                            }
                         }
                         context.write(page.getUrl().toString(), page);
                     }else{
@@ -97,6 +103,9 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
 
         String h1 = StringTool.getH1(result);
         page.setH1(h1);
+
+        String title = StringTool.getTitle(result);
+        page.setTitle(title);
 
         Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
         page.setOutlinks(pages);

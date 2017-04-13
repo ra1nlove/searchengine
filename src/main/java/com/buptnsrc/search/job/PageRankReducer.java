@@ -19,7 +19,7 @@ public class PageRankReducer extends GoraReducer<Text, FloatWritable, String, We
             score += 0.85f * s.get();
         }
         WebPage page = new WebPage();
-        page.setScore(score);
+        page.setPagerank(score);
         context.write(url.toString(),page);
     }
 }

@@ -14,9 +14,12 @@
     {"name": "md5", "type": ["null","string"], "default":null},
     {"name": "keywords", "type": ["null","string"], "default":null},
     {"name": "description", "type": ["null","string"], "default":null},
+    {"name": "title", "type": ["null","string"], "default":null},
     {"name": "h1", "type": ["null","string"], "default":null},
     {"name": "content", "type": ["null","string"], "default":null},
+    {"name": "relate", "type": ["null","string"], "default":null},
+    {"name": "bayes", "type": "float", "default":0},
     {"name": "outlinks","type": {"type": "map","values": ["null","string"]},"default":{}},
-    {"name": "score", "type": "float", "default":1}
+    {"name": "pagerank", "type": "float", "default":1}
   ]
 }

@@ -7,7 +7,7 @@ package com.buptnsrc.search.resource;
 @SuppressWarnings("all")
 /** WebPage is the primary data structure  */
 public class WebPage extends org.apache.gora.persistency.impl.PersistentBase implements org.apache.avro.specific.SpecificRecord, org.apache.gora.persistency.Persistent {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"keywords\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"h1\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"score\",\"type\":\"float\",\"default\":1}],\"default\":null}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"md5\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"keywords\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"title\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"h1\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"relate\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"bayes\",\"type\":\"float\",\"default\":0},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"pagerank\",\"type\":\"float\",\"default\":1}],\"default\":null}");
 
   /** Enum containing all data bean's fields. */
   public static enum Field {
@@ -21,10 +21,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     MD5(7, "md5"),
     KEYWORDS(8, "keywords"),
     DESCRIPTION(9, "description"),
-    H1(10, "h1"),
-    CONTENT(11, "content"),
-    OUTLINKS(12, "outlinks"),
-    SCORE(13, "score"),
+    TITLE(10, "title"),
+    H1(11, "h1"),
+    CONTENT(12, "content"),
+    RELATE(13, "relate"),
+    BAYES(14, "bayes"),
+    OUTLINKS(15, "outlinks"),
+    PAGERANK(16, "pagerank"),
     ;
     /**
      * Field's index.
@@ -73,10 +76,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   "md5",
   "keywords",
   "description",
+  "title",
   "h1",
   "content",
+  "relate",
+  "bayes",
   "outlinks",
-  "score",
+  "pagerank",
   };
 
   /**
@@ -97,10 +103,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   private CharSequence md5;
   private CharSequence keywords;
   private CharSequence description;
+  private CharSequence title;
   private CharSequence h1;
   private CharSequence content;
+  private CharSequence relate;
+  private float bayes;
   private java.util.Map<CharSequence,CharSequence> outlinks;
-  private float score;
+  private float pagerank;
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call. 
   public Object get(int field$) {
@@ -115,10 +124,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 7: return md5;
     case 8: return keywords;
     case 9: return description;
-    case 10: return h1;
-    case 11: return content;
-    case 12: return outlinks;
-    case 13: return score;
+    case 10: return title;
+    case 11: return h1;
+    case 12: return content;
+    case 13: return relate;
+    case 14: return bayes;
+    case 15: return outlinks;
+    case 16: return pagerank;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -137,10 +149,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 7: md5 = (CharSequence)(value); break;
     case 8: keywords = (CharSequence)(value); break;
     case 9: description = (CharSequence)(value); break;
-    case 10: h1 = (CharSequence)(value); break;
-    case 11: content = (CharSequence)(value); break;
-    case 12: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
-    case 13: score = (Float)(value); break;
+    case 10: title = (CharSequence)(value); break;
+    case 11: h1 = (CharSequence)(value); break;
+    case 12: content = (CharSequence)(value); break;
+    case 13: relate = (CharSequence)(value); break;
+    case 14: bayes = (Float)(value); break;
+    case 15: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
+    case 16: pagerank = (Float)(value); break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -386,6 +401,30 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   }
 
   /**
+   * Gets the value of the 'title' field.
+   */
+  public CharSequence getTitle() {
+    return title;
+  }
+
+  /**
+   * Sets the value of the 'title' field.
+   * @param value the value to set.
+   */
+  public void setTitle(CharSequence value) {
+    this.title = value;
+    setDirty(10);
+  }
+  
+  /**
+   * Checks the dirty status of the 'title' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isTitleDirty() {
+    return isDirty(10);
+  }
+
+  /**
    * Gets the value of the 'h1' field.
    */
   public CharSequence getH1() {
@@ -398,7 +437,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setH1(CharSequence value) {
     this.h1 = value;
-    setDirty(10);
+    setDirty(11);
   }
   
   /**
@@ -406,7 +445,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isH1Dirty() {
-    return isDirty(10);
+    return isDirty(11);
   }
 
   /**
@@ -422,7 +461,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setContent(CharSequence value) {
     this.content = value;
-    setDirty(11);
+    setDirty(12);
   }
   
   /**
@@ -430,7 +469,55 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isContentDirty() {
-    return isDirty(11);
+    return isDirty(12);
+  }
+
+  /**
+   * Gets the value of the 'relate' field.
+   */
+  public CharSequence getRelate() {
+    return relate;
+  }
+
+  /**
+   * Sets the value of the 'relate' field.
+   * @param value the value to set.
+   */
+  public void setRelate(CharSequence value) {
+    this.relate = value;
+    setDirty(13);
+  }
+  
+  /**
+   * Checks the dirty status of the 'relate' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isRelateDirty() {
+    return isDirty(13);
+  }
+
+  /**
+   * Gets the value of the 'bayes' field.
+   */
+  public Float getBayes() {
+    return bayes;
+  }
+
+  /**
+   * Sets the value of the 'bayes' field.
+   * @param value the value to set.
+   */
+  public void setBayes(Float value) {
+    this.bayes = value;
+    setDirty(14);
+  }
+  
+  /**
+   * Checks the dirty status of the 'bayes' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * @param value the value to set.
+   */
+  public boolean isBayesDirty() {
+    return isDirty(14);
   }
 
   /**
@@ -446,7 +533,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    */
   public void setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
     this.outlinks = (value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper(value);
-    setDirty(12);
+    setDirty(15);
   }
   
   /**
@@ -454,31 +541,31 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * @param value the value to set.
    */
   public boolean isOutlinksDirty() {
-    return isDirty(12);
+    return isDirty(15);
   }
 
   /**
-   * Gets the value of the 'score' field.
+   * Gets the value of the 'pagerank' field.
    */
-  public Float getScore() {
-    return score;
+  public Float getPagerank() {
+    return pagerank;
   }
 
   /**
-   * Sets the value of the 'score' field.
+   * Sets the value of the 'pagerank' field.
    * @param value the value to set.
    */
-  public void setScore(Float value) {
-    this.score = value;
-    setDirty(13);
+  public void setPagerank(Float value) {
+    this.pagerank = value;
+    setDirty(16);
   }
   
   /**
-   * Checks the dirty status of the 'score' field. A field is dirty if it represents a change that has not yet been written to the database.
+   * Checks the dirty status of the 'pagerank' field. A field is dirty if it represents a change that has not yet been written to the database.
    * @param value the value to set.
    */
-  public boolean isScoreDirty() {
-    return isDirty(13);
+  public boolean isPagerankDirty() {
+    return isDirty(16);
   }
 
   /** Creates a new WebPage RecordBuilder */
@@ -535,10 +622,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     private CharSequence md5;
     private CharSequence keywords;
     private CharSequence description;
+    private CharSequence title;
     private CharSequence h1;
     private CharSequence content;
+    private CharSequence relate;
+    private float bayes;
     private java.util.Map<CharSequence,CharSequence> outlinks;
-    private float score;
+    private float pagerank;
 
     /** Creates a new Builder */
     private Builder() {
@@ -593,21 +683,33 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         this.description = (CharSequence) data().deepCopy(fields()[9].schema(), other.description);
         fieldSetFlags()[9] = true;
       }
-      if (isValidValue(fields()[10], other.h1)) {
-        this.h1 = (CharSequence) data().deepCopy(fields()[10].schema(), other.h1);
+      if (isValidValue(fields()[10], other.title)) {
+        this.title = (CharSequence) data().deepCopy(fields()[10].schema(), other.title);
         fieldSetFlags()[10] = true;
       }
-      if (isValidValue(fields()[11], other.content)) {
-        this.content = (CharSequence) data().deepCopy(fields()[11].schema(), other.content);
+      if (isValidValue(fields()[11], other.h1)) {
+        this.h1 = (CharSequence) data().deepCopy(fields()[11].schema(), other.h1);
         fieldSetFlags()[11] = true;
       }
-      if (isValidValue(fields()[12], other.outlinks)) {
-        this.outlinks = (java.util.Map<CharSequence,CharSequence>) data().deepCopy(fields()[12].schema(), other.outlinks);
+      if (isValidValue(fields()[12], other.content)) {
+        this.content = (CharSequence) data().deepCopy(fields()[12].schema(), other.content);
         fieldSetFlags()[12] = true;
       }
-      if (isValidValue(fields()[13], other.score)) {
-        this.score = (Float) data().deepCopy(fields()[13].schema(), other.score);
+      if (isValidValue(fields()[13], other.relate)) {
+        this.relate = (CharSequence) data().deepCopy(fields()[13].schema(), other.relate);
         fieldSetFlags()[13] = true;
+      }
+      if (isValidValue(fields()[14], other.bayes)) {
+        this.bayes = (Float) data().deepCopy(fields()[14].schema(), other.bayes);
+        fieldSetFlags()[14] = true;
+      }
+      if (isValidValue(fields()[15], other.outlinks)) {
+        this.outlinks = (java.util.Map<CharSequence,CharSequence>) data().deepCopy(fields()[15].schema(), other.outlinks);
+        fieldSetFlags()[15] = true;
+      }
+      if (isValidValue(fields()[16], other.pagerank)) {
+        this.pagerank = (Float) data().deepCopy(fields()[16].schema(), other.pagerank);
+        fieldSetFlags()[16] = true;
       }
     }
 
@@ -858,6 +960,31 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
       return this;
     }
     
+    /** Gets the value of the 'title' field */
+    public CharSequence getTitle() {
+      return title;
+    }
+    
+    /** Sets the value of the 'title' field */
+    public Builder setTitle(CharSequence value) {
+      validate(fields()[10], value);
+      this.title = value;
+      fieldSetFlags()[10] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'title' field has been set */
+    public boolean hasTitle() {
+      return fieldSetFlags()[10];
+    }
+    
+    /** Clears the value of the 'title' field */
+    public Builder clearTitle() {
+      title = null;
+      fieldSetFlags()[10] = false;
+      return this;
+    }
+    
     /** Gets the value of the 'h1' field */
     public CharSequence getH1() {
       return h1;
@@ -865,21 +992,21 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'h1' field */
     public Builder setH1(CharSequence value) {
-      validate(fields()[10], value);
+      validate(fields()[11], value);
       this.h1 = value;
-      fieldSetFlags()[10] = true;
+      fieldSetFlags()[11] = true;
       return this; 
     }
     
     /** Checks whether the 'h1' field has been set */
     public boolean hasH1() {
-      return fieldSetFlags()[10];
+      return fieldSetFlags()[11];
     }
     
     /** Clears the value of the 'h1' field */
     public Builder clearH1() {
       h1 = null;
-      fieldSetFlags()[10] = false;
+      fieldSetFlags()[11] = false;
       return this;
     }
     
@@ -890,21 +1017,70 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'content' field */
     public Builder setContent(CharSequence value) {
-      validate(fields()[11], value);
+      validate(fields()[12], value);
       this.content = value;
-      fieldSetFlags()[11] = true;
+      fieldSetFlags()[12] = true;
       return this; 
     }
     
     /** Checks whether the 'content' field has been set */
     public boolean hasContent() {
-      return fieldSetFlags()[11];
+      return fieldSetFlags()[12];
     }
     
     /** Clears the value of the 'content' field */
     public Builder clearContent() {
       content = null;
-      fieldSetFlags()[11] = false;
+      fieldSetFlags()[12] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'relate' field */
+    public CharSequence getRelate() {
+      return relate;
+    }
+    
+    /** Sets the value of the 'relate' field */
+    public Builder setRelate(CharSequence value) {
+      validate(fields()[13], value);
+      this.relate = value;
+      fieldSetFlags()[13] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'relate' field has been set */
+    public boolean hasRelate() {
+      return fieldSetFlags()[13];
+    }
+    
+    /** Clears the value of the 'relate' field */
+    public Builder clearRelate() {
+      relate = null;
+      fieldSetFlags()[13] = false;
+      return this;
+    }
+    
+    /** Gets the value of the 'bayes' field */
+    public Float getBayes() {
+      return bayes;
+    }
+    
+    /** Sets the value of the 'bayes' field */
+    public Builder setBayes(float value) {
+      validate(fields()[14], value);
+      this.bayes = value;
+      fieldSetFlags()[14] = true;
+      return this; 
+    }
+    
+    /** Checks whether the 'bayes' field has been set */
+    public boolean hasBayes() {
+      return fieldSetFlags()[14];
+    }
+    
+    /** Clears the value of the 'bayes' field */
+    public Builder clearBayes() {
+      fieldSetFlags()[14] = false;
       return this;
     }
     
@@ -915,45 +1091,45 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     
     /** Sets the value of the 'outlinks' field */
     public Builder setOutlinks(java.util.Map<CharSequence,CharSequence> value) {
-      validate(fields()[12], value);
+      validate(fields()[15], value);
       this.outlinks = value;
-      fieldSetFlags()[12] = true;
+      fieldSetFlags()[15] = true;
       return this; 
     }
     
     /** Checks whether the 'outlinks' field has been set */
     public boolean hasOutlinks() {
-      return fieldSetFlags()[12];
+      return fieldSetFlags()[15];
     }
     
     /** Clears the value of the 'outlinks' field */
     public Builder clearOutlinks() {
       outlinks = null;
-      fieldSetFlags()[12] = false;
+      fieldSetFlags()[15] = false;
       return this;
     }
     
-    /** Gets the value of the 'score' field */
-    public Float getScore() {
-      return score;
+    /** Gets the value of the 'pagerank' field */
+    public Float getPagerank() {
+      return pagerank;
     }
     
-    /** Sets the value of the 'score' field */
-    public Builder setScore(float value) {
-      validate(fields()[13], value);
-      this.score = value;
-      fieldSetFlags()[13] = true;
+    /** Sets the value of the 'pagerank' field */
+    public Builder setPagerank(float value) {
+      validate(fields()[16], value);
+      this.pagerank = value;
+      fieldSetFlags()[16] = true;
       return this; 
     }
     
-    /** Checks whether the 'score' field has been set */
-    public boolean hasScore() {
-      return fieldSetFlags()[13];
+    /** Checks whether the 'pagerank' field has been set */
+    public boolean hasPagerank() {
+      return fieldSetFlags()[16];
     }
     
-    /** Clears the value of the 'score' field */
-    public Builder clearScore() {
-      fieldSetFlags()[13] = false;
+    /** Clears the value of the 'pagerank' field */
+    public Builder clearPagerank() {
+      fieldSetFlags()[16] = false;
       return this;
     }
     
@@ -971,10 +1147,13 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         record.md5 = fieldSetFlags()[7] ? this.md5 : (CharSequence) defaultValue(fields()[7]);
         record.keywords = fieldSetFlags()[8] ? this.keywords : (CharSequence) defaultValue(fields()[8]);
         record.description = fieldSetFlags()[9] ? this.description : (CharSequence) defaultValue(fields()[9]);
-        record.h1 = fieldSetFlags()[10] ? this.h1 : (CharSequence) defaultValue(fields()[10]);
-        record.content = fieldSetFlags()[11] ? this.content : (CharSequence) defaultValue(fields()[11]);
-        record.outlinks = fieldSetFlags()[12] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[12]));
-        record.score = fieldSetFlags()[13] ? this.score : (Float) defaultValue(fields()[13]);
+        record.title = fieldSetFlags()[10] ? this.title : (CharSequence) defaultValue(fields()[10]);
+        record.h1 = fieldSetFlags()[11] ? this.h1 : (CharSequence) defaultValue(fields()[11]);
+        record.content = fieldSetFlags()[12] ? this.content : (CharSequence) defaultValue(fields()[12]);
+        record.relate = fieldSetFlags()[13] ? this.relate : (CharSequence) defaultValue(fields()[13]);
+        record.bayes = fieldSetFlags()[14] ? this.bayes : (Float) defaultValue(fields()[14]);
+        record.outlinks = fieldSetFlags()[15] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[15]));
+        record.pagerank = fieldSetFlags()[16] ? this.pagerank : (Float) defaultValue(fields()[16]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
@@ -1227,6 +1406,29 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 	  }
 	
 				  /**
+	   * Gets the value of the 'title' field.
+		   */
+	  public CharSequence getTitle() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'title' field.
+		   * @param value the value to set.
+	   */
+	  public void setTitle(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'title' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isTitleDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
 	   * Gets the value of the 'h1' field.
 		   */
 	  public CharSequence getH1() {
@@ -1273,6 +1475,52 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 	  }
 	
 				  /**
+	   * Gets the value of the 'relate' field.
+		   */
+	  public CharSequence getRelate() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'relate' field.
+		   * @param value the value to set.
+	   */
+	  public void setRelate(CharSequence value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'relate' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isRelateDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
+	   * Gets the value of the 'bayes' field.
+		   */
+	  public Float getBayes() {
+	    throw new UnsupportedOperationException("Get is not supported on tombstones");
+	  }
+	
+	  /**
+	   * Sets the value of the 'bayes' field.
+		   * @param value the value to set.
+	   */
+	  public void setBayes(Float value) {
+	    throw new UnsupportedOperationException("Set is not supported on tombstones");
+	  }
+	  
+	  /**
+	   * Checks the dirty status of the 'bayes' field. A field is dirty if it represents a change that has not yet been written to the database.
+		   * @param value the value to set.
+	   */
+	  public boolean isBayesDirty() {
+	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
+	  }
+	
+				  /**
 	   * Gets the value of the 'outlinks' field.
 		   */
 	  public java.util.Map<CharSequence,CharSequence> getOutlinks() {
@@ -1296,25 +1544,25 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 	  }
 	
 				  /**
-	   * Gets the value of the 'score' field.
+	   * Gets the value of the 'pagerank' field.
 		   */
-	  public Float getScore() {
+	  public Float getPagerank() {
 	    throw new UnsupportedOperationException("Get is not supported on tombstones");
 	  }
 	
 	  /**
-	   * Sets the value of the 'score' field.
+	   * Sets the value of the 'pagerank' field.
 		   * @param value the value to set.
 	   */
-	  public void setScore(Float value) {
+	  public void setPagerank(Float value) {
 	    throw new UnsupportedOperationException("Set is not supported on tombstones");
 	  }
 	  
 	  /**
-	   * Checks the dirty status of the 'score' field. A field is dirty if it represents a change that has not yet been written to the database.
+	   * Checks the dirty status of the 'pagerank' field. A field is dirty if it represents a change that has not yet been written to the database.
 		   * @param value the value to set.
 	   */
-	  public boolean isScoreDirty() {
+	  public boolean isPagerankDirty() {
 	    throw new UnsupportedOperationException("IsDirty is not supported on tombstones");
 	  }
 	

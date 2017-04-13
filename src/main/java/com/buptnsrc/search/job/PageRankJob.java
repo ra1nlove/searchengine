@@ -28,7 +28,7 @@ public class PageRankJob {
     private Collection<WebPage.Field> FIELDS = new HashSet<>();
 
     public PageRankJob(){
-        FIELDS.add(WebPage.Field.SCORE);
+        FIELDS.add(WebPage.Field.PAGERANK);
         FIELDS.add(WebPage.Field.OUTLINKS);
     }
 

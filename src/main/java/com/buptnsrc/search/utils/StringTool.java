@@ -52,6 +52,17 @@ public class StringTool {
         return result;
     }
 
+    public static String getTitle(String text){
+        String title = null;
+        Document doc = Jsoup.parse(text);
+        title  = doc.title();
+        if(title ==null ){
+            return "";
+        }else{
+            return title;
+        }
+    }
+
     public static String getH1(String str){
         String result = "";
         Document doc = Jsoup.parse(str);

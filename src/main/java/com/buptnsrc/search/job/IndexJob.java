@@ -32,6 +32,10 @@ public class IndexJob {
         FIELDS.add(WebPage.Field.STATUS);
         FIELDS.add(WebPage.Field.URL);
         FIELDS.add(WebPage.Field.CONTENT);
+        FIELDS.add(WebPage.Field.TITLE);
+        FIELDS.add(WebPage.Field.DESCRIPTION);
+        FIELDS.add(WebPage.Field.H1);
+        FIELDS.add(WebPage.Field.KEYWORDS);
     }
 
     public void index() throws Exception {
@@ -47,7 +51,6 @@ public class IndexJob {
         list.add(new Utf8("index"));
         filter.setOperands(list);
         query.setFilter(filter);
-
 
         Configuration conf = new Configuration();
         conf.setBoolean("mapred.map.tasks.speculative.execution", false);
@@ -65,6 +68,7 @@ public class IndexJob {
         job.setNumReduceTasks(0);
         job.waitForCompletion(true);
         dataStore.close();
+        
     }
 
 
