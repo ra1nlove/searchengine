@@ -1,6 +1,7 @@
 package com.buptnsrc.search.job;
 
 import com.buptnsrc.search.Classify.WebPageClassify;
+import com.buptnsrc.search.demo.TextExtract;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
 import com.buptnsrc.search.utils.StringTool;
@@ -53,6 +54,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                     if (page != null){
                         String result = PageDownload.download(page);
                         if (result != null) {
+                            System.out.println(TextExtract.parse(result));
                             context.getCounter("FetchJob","success").increment(1);
                             Boolean topic = WebPageClassify.classify(result);
                             if(topic) {
