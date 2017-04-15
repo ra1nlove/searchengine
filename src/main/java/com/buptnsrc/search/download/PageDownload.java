@@ -68,16 +68,6 @@ public class PageDownload {
                 if(statuscode==200){
                     HttpEntity entity = resp.getEntity();
                     result = getContent(entity,page);
-                    String pagemd5 = StringTool.getHash(StringTool.getContext(result));
-                    if(page.getMd5()!=null && pagemd5.equals(page.getMd5())){
-                        int interval = page.getFetchInterval();
-                        page.setFetchInterval(interval*2);
-                        page.setStatus("fetch");
-                    }else{
-                        page.setStatus("index");
-                    }
-                    page.setMd5(pagemd5);
-                    page.setContent(StringTool.getContext(result));
                     page.setRetriesSinceFetch(0);
                     log.info("download page success by "+proxy+" : "+page.getUrl().toString());
                     return result;
@@ -106,6 +96,7 @@ public class PageDownload {
                 page.setStatus("fetch");
             }
         }
+
         page.setFetchTime(System.currentTimeMillis());
         return result;
 

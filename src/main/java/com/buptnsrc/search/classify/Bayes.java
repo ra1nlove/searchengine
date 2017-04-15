@@ -1,4 +1,4 @@
-package com.buptnsrc.search.Classify;
+package com.buptnsrc.search.classify;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
 
@@ -51,8 +51,7 @@ public class Bayes {
 	public  static double getProb(String text,String category) {
 
 		double prob = 1.0 ;
-		double prob_c = 1.0 ;  
-
+		double prob_c = 1.0 ;
 
 		List<String> wordList = seg.sentenceProcess(text);
 		Set<String> wordSet = new HashSet<String>();
@@ -84,6 +83,7 @@ public class Bayes {
 	}
 	
 	public static void main(String[] args) throws IOException{
+
 	}
 	
 }

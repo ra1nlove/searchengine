@@ -32,16 +32,6 @@ public class StringTool {
         return null;
     }
 
-    public static String getContext(String htmlStr){
-        if(htmlStr == null){
-            return null;
-        }
-        Document doc = Jsoup.parse(htmlStr);
-        htmlStr = doc.body().text();
-        htmlStr = htmlStr.replaceAll("\\s*", "");
-        return htmlStr.trim(); //返回文本字符串
-    }
-
     public static String getMeta(String str,String name){
         String result = "";
         Document doc = Jsoup.parse(str);

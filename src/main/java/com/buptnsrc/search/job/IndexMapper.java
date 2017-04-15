@@ -23,7 +23,7 @@ public class IndexMapper extends GoraMapper<String,WebPage, NullWritable ,MapWri
         doc.put(new Text("keyword"),new Text(page.getKeywords().toString()));
         doc.put(new Text("h1"),new Text(page.getKeywords().toString()));
         String content = page.getContent().toString();
-        doc.put(new Text("content"),new Text(StringTool.getContext(content)));
+        doc.put(new Text("content"),new Text(content));
         context.getCounter("IndexJob", "index").increment(1);
         context.write(NullWritable.get(),doc);
     }

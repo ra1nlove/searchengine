@@ -12,6 +12,7 @@
     {"name": "status", "type": ["null","string"], "default":null},
     {"name": "statusCode", "type": ["null","string"], "default":null},
     {"name": "md5", "type": ["null","string"], "default":null},
+    {"name": "type", "type": ["null","string"], "default":null},
     {"name": "keywords", "type": ["null","string"], "default":null},
     {"name": "description", "type": ["null","string"], "default":null},
     {"name": "title", "type": ["null","string"], "default":null},

@@ -1,6 +1,7 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.Classify.WebPageClassify;
+import com.buptnsrc.search.classify.Bayes;
+import com.buptnsrc.search.classify.WebPageClassify;
 import com.buptnsrc.search.demo.TextExtract;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
@@ -48,22 +49,17 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
 
         @Override
         public void run(){
+            String url = null;
             try{
+
                 while (true) {
                     WebPage page = pages.poll();
                     if (page != null){
+                        url = page.getUrl().toString();
                         String result = PageDownload.download(page);
-                        if (result != null) {
-                            System.out.println(TextExtract.parse(result));
+                        if (result != null && page.getStatusCode().toString().equals("200")) {
                             context.getCounter("FetchJob","success").increment(1);
-                            Boolean topic = WebPageClassify.classify(result);
-                            if(topic) {
-                                parse(page, result, context);
-                                context.getCounter("FetchJob","topic").increment(1);
-                            }else{
-                                page.clearDirty("content");
-                                page.setStatus("end");
-                            }
+                            parse(page, result, context);
                         }
                         context.write(page.getUrl().toString(), page);
                     }else{
@@ -71,7 +67,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                     }
                 }
             }catch (Exception e){
-                log.error("fetch error!",e);
+                log.error(url,e);
             }finally {
                 endGate.countDown();
             }
@@ -95,19 +91,63 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         }
     }
 
+
+
+
     public void parse(WebPage page,String result,Context context) throws Exception{
 
+        String[] words = {"科技","IT","互联网","通讯","3C","数码","手机","笔记本"};
+
         String keywords = StringTool.getMeta(result,"keywords");
-        page.setKeywords(keywords);
-
         String des = StringTool.getMeta(result,"description");
-        page.setDescription(des);
-
         String h1 = StringTool.getH1(result);
-        page.setH1(h1);
-
         String title = StringTool.getTitle(result);
-        page.setTitle(title);
+
+        boolean headtopic = false;
+
+        for(String word : words){
+            if(title.contains(word)||keywords.contains(word)||des.contains(word)){
+                headtopic = true;
+                break;
+            }
+        }
+
+
+
+        Boolean detailPage = WebPageClassify.DetailPageClassify(result);
+        if(detailPage){
+            String content = TextExtract.getText(result);
+            Boolean topic = Bayes.classify(content);
+            if(headtopic || topic){
+                page.setContent(content);
+                page.setTitle(title);
+                page.setDescription(des);
+                page.setKeywords(keywords);
+                page.setH1(h1);
+                page.setRelate("true");
+                page.setType("detail");
+            }else{
+                page.setRelate("false");
+                page.setStatus("end");
+                page.setType("detail");
+                return;
+            }
+        }else{
+            if(headtopic){
+                page.setTitle(title);
+                page.setDescription(des);
+                page.setKeywords(keywords);
+                page.setH1(h1);
+                page.setRelate("true");
+                page.setType("list");
+            }else{
+                page.setRelate("false");
+                page.setStatus("end");
+                page.setType("list");
+                return;
+            }
+
+        }
 
         Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
         page.setOutlinks(pages);

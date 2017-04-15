@@ -8,53 +8,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TextExtract {
-	
-	private static List<String> lines;
-	private final static int blocksWidth;
-	private static int threshold;
-	private static String html;
-	private static boolean flag;
-	private static int start;
-	private static int end;
-	private static StringBuilder text;
-	private static ArrayList<Integer> indexDistribution;
-	
-	static {
-		lines = new ArrayList<String>();
-		indexDistribution = new ArrayList<Integer>();
-		text = new StringBuilder();
-		blocksWidth = 3;
-		flag = false;
-		threshold	= 86;   
-	}
-	
-	public static void setthreshold(int value) {
-		threshold = value;
-	}
 
+	private final static int blocksWidth =3;
+	private static int threshold = 86;
 
-	public static String parse(String _html) {
-		return parse(_html, false);
-	}
 	
+	public static String getText(String html) {
+        List<String> lines ;
+        int start;
+        int end;
+        StringBuilder text = new StringBuilder();
+        ArrayList<Integer> indexDistribution = new ArrayList<Integer>();
 
-	public static String parse(String _html, boolean _flag) {
-		flag = _flag;
-		html = _html;
-		preProcess();
-		return getText();
-	}
-	
-	private static void preProcess() {
-		html = html.replaceAll("(?is)<!DOCTYPE.*?>", "");
-		html = html.replaceAll("(?is)<!--.*?-->", "");				// remove html comment
-		html = html.replaceAll("(?is)<script.*?>.*?</script>", ""); // remove javascript
-		html = html.replaceAll("(?is)<style.*?>.*?</style>", "");   // remove css
-		html = html.replaceAll("&.{2,5};|&#.{2,5};", " ");			// remove special char
-		html = html.replaceAll("(?is)<.*?>", "");
-	}
-	
-	private static String getText() {
+        html = html.replaceAll("(?is)<!DOCTYPE.*?>", "");
+        html = html.replaceAll("(?is)<!--.*?-->", "");				// remove html comment
+        html = html.replaceAll("(?is)<script.*?>.*?</script>", ""); // remove javascript
+        html = html.replaceAll("(?is)<style.*?>.*?</style>", "");   // remove css
+        html = html.replaceAll("&.{2,5};|&#.{2,5};", " ");			// remove special char
+        html = html.replaceAll("(?is)<.*?>", "");
+
 		lines = Arrays.asList(html.split("\n"));
 		indexDistribution.clear();
 		
@@ -65,7 +37,6 @@ public class TextExtract {
 				wordsNum += lines.get(j).length();
 			}
 			indexDistribution.add(wordsNum);
-			//System.out.println(wordsNum);
 		}
 		
 		start = -1; end = -1;
@@ -91,13 +62,11 @@ public class TextExtract {
 			}
 			StringBuilder tmp = new StringBuilder();
 			if (boolend) {
-				//System.out.println(start+1 + "\t\t" + end+1);
 				for (int ii = start; ii <= end; ii++) {
 					if (lines.get(ii).length() < 5) continue;
 					tmp.append(lines.get(ii) + "\n");
 				}
 				String str = tmp.toString();
-				//System.out.println(str);
 				if (str.contains("Copyright") ) continue;
 				text.append(str);
 				boolstart = boolend = false;
@@ -108,9 +77,9 @@ public class TextExtract {
 
 	public static void main(String[] args){
         WebPage page = new WebPage();
-        page.setUrl("http://shouji.baidu.com/software/11267368.html");
+        page.setUrl("http://auto.sina.com.cn/newcar/2017-04-11/detail-ifyecezv3157429.shtml");
         String result = PageDownload.download(page);
-
-        System.out.println(TextExtract.parse(result));
+        System.out.println(TextExtract.getText(result));
     }
+
 }
