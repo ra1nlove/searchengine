@@ -1,4 +1,4 @@
-package com.buptnsrc.search.utils;
+package com.buptnsrc.search.page;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

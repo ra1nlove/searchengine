@@ -1,7 +1,6 @@
 package com.buptnsrc.search.download;
 
 import com.buptnsrc.search.resource.WebPage;
-import com.buptnsrc.search.utils.StringTool;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;

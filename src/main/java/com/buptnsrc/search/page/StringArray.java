@@ -1,4 +1,4 @@
-package com.buptnsrc.search.utils;
+package com.buptnsrc.search.page;
 
 import com.buptnsrc.search.resource.WebPage;
 import java.util.Collection;

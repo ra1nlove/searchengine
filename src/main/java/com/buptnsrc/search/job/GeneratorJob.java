@@ -1,6 +1,6 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.utils.StringArray;
+import com.buptnsrc.search.page.StringArray;
 import com.buptnsrc.search.resource.WebPage;
 import java.util.ArrayList;
 import java.util.Collection;

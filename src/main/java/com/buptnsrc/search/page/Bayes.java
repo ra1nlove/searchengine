@@ -1,4 +1,4 @@
-package com.buptnsrc.search.classify;
+package com.buptnsrc.search.page;
 
 import com.huaban.analysis.jieba.JiebaSegmenter;
 
@@ -80,10 +80,6 @@ public class Bayes {
 		}else{
 			return false;
 		}
-	}
-	
-	public static void main(String[] args) throws IOException{
-
 	}
 	
 }

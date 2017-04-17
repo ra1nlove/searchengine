@@ -1,12 +1,11 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.classify.Bayes;
-import com.buptnsrc.search.classify.WebPageClassify;
-import com.buptnsrc.search.demo.TextExtract;
+import com.buptnsrc.search.page.Bayes;
+import com.buptnsrc.search.page.PageClassify;
+import com.buptnsrc.search.page.TextExtract;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
-import com.buptnsrc.search.utils.StringTool;
-import com.buptnsrc.search.utils.UrlUtils;
+import com.buptnsrc.search.page.UrlUtils;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import org.apache.commons.logging.Log;
@@ -24,7 +23,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
 
-    BloomFilter<byte[]> bloomFilter  = BloomFilter.create(Funnels.byteArrayFunnel(),1000000);
+    BloomFilter<byte[]> bloomFilter = BloomFilter.create(Funnels.byteArrayFunnel(),1000000);
 
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
@@ -91,17 +90,14 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         }
     }
 
-
-
-
     public void parse(WebPage page,String result,Context context) throws Exception{
 
         String[] words = {"科技","IT","互联网","通讯","3C","数码","手机","笔记本"};
 
-        String keywords = StringTool.getMeta(result,"keywords");
-        String des = StringTool.getMeta(result,"description");
-        String h1 = StringTool.getH1(result);
-        String title = StringTool.getTitle(result);
+        String keywords = TextExtract.getMeta(result,"keywords");
+        String des = TextExtract.getMeta(result,"description");
+        String h1 = TextExtract.getH1(result);
+        String title = TextExtract.getTitle(result);
 
         boolean headtopic = false;
 
@@ -112,9 +108,8 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
             }
         }
 
+        Boolean detailPage = PageClassify.DetailPageClassify(result);
 
-
-        Boolean detailPage = WebPageClassify.DetailPageClassify(result);
         if(detailPage){
             String content = TextExtract.getText(result);
             Boolean topic = Bayes.classify(content);

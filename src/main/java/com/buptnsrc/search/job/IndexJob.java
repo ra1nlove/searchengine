@@ -1,7 +1,7 @@
 package com.buptnsrc.search.job;
 
 import com.buptnsrc.search.resource.WebPage;
-import com.buptnsrc.search.utils.StringArray;
+import com.buptnsrc.search.page.StringArray;
 import org.apache.avro.util.Utf8;
 import org.apache.gora.filter.FilterOp;
 import org.apache.gora.filter.SingleFieldValueFilter;

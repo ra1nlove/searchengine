@@ -1,7 +1,6 @@
 package com.buptnsrc.search.job;
 
 import com.buptnsrc.search.resource.WebPage;
-import com.buptnsrc.search.utils.StringTool;
 import org.apache.gora.mapreduce.GoraMapper;
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.NullWritable;

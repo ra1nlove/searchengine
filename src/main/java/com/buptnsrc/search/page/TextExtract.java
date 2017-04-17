@@ -1,8 +1,14 @@
-package com.buptnsrc.search.demo;
+package com.buptnsrc.search.page;
 
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
+import org.apache.commons.codec.binary.Hex;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +20,7 @@ public class TextExtract {
 
 	
 	public static String getText(String html) {
+
         List<String> lines ;
         int start;
         int end;
@@ -38,11 +45,10 @@ public class TextExtract {
 			}
 			indexDistribution.add(wordsNum);
 		}
-		
 		start = -1; end = -1;
 		boolean boolstart = false, boolend = false;
 		text.setLength(0);
-		
+
 		for (int i = 0; i < indexDistribution.size() - 1; i++) {
 			if (indexDistribution.get(i) > threshold && ! boolstart) {
 				if (indexDistribution.get(i+1).intValue() != 0 
@@ -72,14 +78,53 @@ public class TextExtract {
 				boolstart = boolend = false;
 			}
 		}
+
 		return text.toString();
+
 	}
 
-	public static void main(String[] args){
-        WebPage page = new WebPage();
-        page.setUrl("http://auto.sina.com.cn/newcar/2017-04-11/detail-ifyecezv3157429.shtml");
-        String result = PageDownload.download(page);
-        System.out.println(TextExtract.getText(result));
+
+    public static String getHash(String str){
+        if(str != null && !"".equals(str)){
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] e = digest.digest(str.getBytes("UTF-8"));
+                return Hex.encodeHexString(e);
+            }catch(Exception e){
+            }
+        }
+        return null;
+    }
+
+    public static String getMeta(String str,String name){
+        String result = "";
+        Document doc = Jsoup.parse(str);
+        Elements metas =doc.head().getElementsByAttributeValue("name",name);
+        for(Element e : metas){
+            result = e.attr("content");
+        }
+        return result;
+    }
+
+    public static String getTitle(String text){
+        String title = null;
+        Document doc = Jsoup.parse(text);
+        title  = doc.title();
+        if(title ==null ){
+            return "";
+        }else{
+            return title;
+        }
+    }
+
+    public static String getH1(String str){
+        String result = "";
+        Document doc = Jsoup.parse(str);
+        Elements h1 = doc.select("h1");
+        for(Element e : h1){
+            result = e.text();
+        }
+        return result;
     }
 
 }
