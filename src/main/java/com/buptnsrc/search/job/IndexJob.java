@@ -36,6 +36,7 @@ public class IndexJob {
         FIELDS.add(WebPage.Field.DESCRIPTION);
         FIELDS.add(WebPage.Field.H1);
         FIELDS.add(WebPage.Field.KEYWORDS);
+        FIELDS.add(WebPage.Field.TYPE);
     }
 
     public void index() throws Exception {
@@ -56,7 +57,7 @@ public class IndexJob {
         conf.setBoolean("mapred.map.tasks.speculative.execution", false);
         conf.setBoolean("mapred.reduce.tasks.speculative.execution", false);
         conf.set("es.nodes", "10.108.113.231:9200");
-        conf.set("es.resource", "page/fulltext");
+        conf.set("es.resource", "web/page");
         conf.set("es.mapping.id", "url");
 
         Job job = Job.getInstance(conf);

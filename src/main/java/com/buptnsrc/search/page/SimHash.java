@@ -78,7 +78,7 @@ public class SimHash {
     }
 
 
-    public int hammingDistance(String str1, String str2) {
+    public static int hammingDistance(String str1, String str2) {
         int distance;
         if (str1.length() != str2.length()) {
             distance = -1;

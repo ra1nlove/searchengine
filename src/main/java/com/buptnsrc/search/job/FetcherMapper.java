@@ -1,11 +1,8 @@
 package com.buptnsrc.search.job;
 
-import com.buptnsrc.search.page.Bayes;
-import com.buptnsrc.search.page.PageClassify;
-import com.buptnsrc.search.page.TextExtract;
+import com.buptnsrc.search.page.*;
 import com.buptnsrc.search.download.PageDownload;
 import com.buptnsrc.search.resource.WebPage;
-import com.buptnsrc.search.page.UrlUtils;
 import com.google.common.hash.BloomFilter;
 import com.google.common.hash.Funnels;
 import org.apache.commons.logging.Log;
@@ -98,6 +95,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         String des = TextExtract.getMeta(result,"description");
         String h1 = TextExtract.getH1(result);
         String title = TextExtract.getTitle(result);
+        Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
 
         boolean headtopic = false;
 
@@ -109,16 +107,13 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         }
 
         Boolean detailPage = PageClassify.DetailPageClassify(result);
-
+        String hash = "";
         if(detailPage){
             String content = TextExtract.getText(result);
             Boolean topic = Bayes.classify(content);
             if(headtopic || topic){
+                hash = SimHash.simHash(content);
                 page.setContent(content);
-                page.setTitle(title);
-                page.setDescription(des);
-                page.setKeywords(keywords);
-                page.setH1(h1);
                 page.setRelate("true");
                 page.setType("detail");
             }else{
@@ -129,10 +124,11 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
             }
         }else{
             if(headtopic){
-                page.setTitle(title);
-                page.setDescription(des);
-                page.setKeywords(keywords);
-                page.setH1(h1);
+                String mes = "";
+                for(CharSequence l : pages.keySet()){
+                    mes+=l.toString();
+                }
+                hash = TextExtract.getHash(mes);
                 page.setRelate("true");
                 page.setType("list");
             }else{
@@ -144,8 +140,20 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
 
         }
 
-        Map<CharSequence,CharSequence> pages = UrlUtils.getAllUrls(page.getUrl().toString(), result);
+        if(page.getMd5() != null && SimHash.hammingDistance(hash,page.getMd5().toString())<4){
+            int interval = page.getFetchInterval();
+            page.setFetchInterval(interval*2);
+            page.setStatus("fetch");
+        }else{
+            page.setStatus("index");
+        }
+
+        page.setTitle(title);
+        page.setDescription(des);
+        page.setKeywords(keywords);
+        page.setH1(h1);
         page.setOutlinks(pages);
+        page.setMd5(hash);
 
         for (CharSequence newurl : pages.keySet()) {
             context.getCounter("FetchJob", "newall").increment(1);
