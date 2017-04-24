@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f180865-7ea2-4175-ab3d-508414654ea0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/download/ProxyPool.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/test/com/buptnsrc/search/demo/GoraTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/download/PageDownload.java" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/download/PageDownload.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/job/PageRankJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/job/PageRankJob.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/TextExtract.java" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/TextExtract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/UrlUtils.java" afterPath="$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/UrlUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/sites.xml" afterPath="$PROJECT_DIR$/src/main/resources/sites.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,11 +48,11 @@
       <file leaf-file-name="Bayes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state relative-caret-position="157">
+              <caret line="73" column="94" lean-forward="false" selection-start-line="73" selection-start-column="94" selection-end-line="73" selection-end-column="94" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2413#2421#0" expanded="true" />
+                <element signature="e#2355#2363#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -593,7 +585,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="DefaultHtmlFileTemplate" value="XHTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="debug&#9;ACTION&#9;ActivateDebugToolWindow&#10;ter&#9;ACTION&#9;ActivateTerminalToolWindow&#10;setting&#9;ACTION&#9;Database.Settings&#10;de&#9;ACTION&#9;ActivateDebugToolWindow&#10;TER&#9;ACTION&#9;ActivateTerminalToolWindow&#10;pro&#9;ACTION&#9;ActivateProjectToolWindow&#10;proj&#9;ACTION&#9;ActivateProjectToolWindow&#10;st&#9;ACTION&#9;ActivateStructureToolWindow&#10;markdow&#9;ACTION&#9;Markdown.Toolbar.Left" />
+    <property name="SearchEverywhereHistoryKey" value="ter&#9;ACTION&#9;ActivateTerminalToolWindow&#10;debug&#9;ACTION&#9;ActivateDebugToolWindow&#10;setting&#9;ACTION&#9;Database.Settings&#10;de&#9;ACTION&#9;ActivateDebugToolWindow&#10;TER&#9;ACTION&#9;ActivateTerminalToolWindow&#10;pro&#9;ACTION&#9;ActivateProjectToolWindow&#10;proj&#9;ACTION&#9;ActivateProjectToolWindow&#10;st&#9;ACTION&#9;ActivateStructureToolWindow&#10;markdow&#9;ACTION&#9;Markdown.Toolbar.Left" />
     <property name="settings.editor.selected.configurable" value="plugins.junitgenerator.project" />
   </component>
   <component name="RecentsManager">
@@ -1179,14 +1171,11 @@
       <workItem from="1492660239794" duration="6135000" />
       <workItem from="1492679904682" duration="7155000" />
       <workItem from="1492691125976" duration="40000" />
-      <workItem from="1492735145635" duration="21954000" />
+      <workItem from="1492735145635" duration="22288000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="BayesTest_testClassify - 2017.04.24 at 17h 42m 31s.xml">
-      <configuration name="BayesTest.testClassify" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="BayesTest_testClassify - 2017.04.24 at 17h 42m 54s.xml">
       <configuration name="BayesTest.testClassify" configurationId="JUnit" />
     </history-entry>
@@ -1211,12 +1200,15 @@
     <history-entry file="BayesTest_testClassify - 2017.04.24 at 17h 58m 16s.xml">
       <configuration name="BayesTest.testClassify" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="GoraTest_getData - 2017.04.21 at 11h 50m 11s.xml">
-      <configuration name="GoraTest.getData" configurationId="JUnit" />
+    <history-entry file="BayesTest_testClassify - 2017.04.24 at 19h 40m 41s.xml">
+      <configuration name="BayesTest.testClassify" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="BayesTest_testClassify - 2017.04.24 at 19h 45m 51s.xml">
+      <configuration name="BayesTest.testClassify" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="510236000" />
+    <option name="totallyTimeSpent" value="510570000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1229,6 +1221,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1665" y="-4" width="1535" height="904" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.49764308" order="12" side_tool="false" content_ui="tabs" />
@@ -1240,14 +1233,14 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8666667" sideWeight="0.49764308" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18311688" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47684607" sideWeight="0.4962963" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47672957" sideWeight="0.4962963" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28664497" sideWeight="0.49247313" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33355048" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41132075" sideWeight="0.49771988" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41132075" sideWeight="0.49771988" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34208754" sideWeight="0.5075269" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1363,15 +1356,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java</url>
-          <line>79</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="161" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java</url>
-          <line>74</line>
-          <properties />
-          <option name="timeStamp" value="164" />
         </line-breakpoint>
       </breakpoints>
       <option name="time" value="165" />
@@ -1445,6 +1432,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
           <caret line="46" column="28" lean-forward="false" selection-start-line="46" selection-start-column="28" selection-end-line="46" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1736,16 +1724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/download/PageDownload.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/local/java/src.zip!/java/util/Comparator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1778,6 +1756,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/download/PageDownload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/test/com/buptnsrc/search/page/BayesTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
@@ -1788,11 +1776,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/buptnsrc/search/page/Bayes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state relative-caret-position="157">
+          <caret line="73" column="94" lean-forward="false" selection-start-line="73" selection-start-column="94" selection-end-line="73" selection-end-column="94" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2413#2421#0" expanded="true" />
+            <element signature="e#2355#2363#0" expanded="true" />
           </folding>
         </state>
       </provider>

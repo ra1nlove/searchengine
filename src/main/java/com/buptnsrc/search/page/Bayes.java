@@ -52,10 +52,10 @@ public class Bayes {
 		double max = 0;
 		text = text.replaceAll("\\s","").replaceAll("\r\n","");
 		List<String> wordList = seg.sentenceProcess(text);
-		Map<String,Double> wordnum = new HashMap<>();
+		Map<String,Integer> wordnum = new HashMap<>();
 		for(String word : wordList){
 			if(!stopword.contains(word)) {
-				wordnum.put(word, wordnum.getOrDefault(word, 0.0) + 1);
+				wordnum.put(word, wordnum.getOrDefault(word, 0) + 1);
 				if(wordnum.get(word)>max){
 					max = wordnum.get(word);
 				}
@@ -68,12 +68,11 @@ public class Bayes {
 //			wordnum.put(key,value);
 //		}
 
-		List<Map.Entry<String,Double>> words = new ArrayList<>(wordnum.entrySet());
-		Collections.sort(words, new Comparator<Map.Entry<String, Double>>() {
+		List<Map.Entry<String,Integer>> words = new ArrayList<>(wordnum.entrySet());
+		Collections.sort(words, new Comparator<Map.Entry<String, Integer>>() {
 			@Override
-			public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
-			    System.out.println((o1.getKey()).toString().compareTo(o2.getKey()));
-                return (o1.getKey()).toString().compareTo(o2.getKey());
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return (o1.getValue()).toString().compareTo(o2.getValue().toString());
 			}
 		});
 
