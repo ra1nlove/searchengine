@@ -24,7 +24,6 @@ public class PageDownload {
 
     private static Log log = LogFactory.getLog(PageDownload.class);
     static CloseableHttpClient httpclient= HttpClientManager.getHttpClient();
-    private static String[] proxys = {"proxy2.asec.buptnsrc.com","proxy.asec.buptnsrc.com","proxy1.asec.buptnsrc.com"};
 
     /**
      * 对页面进行下载、解析
@@ -32,10 +31,13 @@ public class PageDownload {
      * @return 页面的内容
      */
     public static String download(WebPage page){
+        ProxyPool proxys = new ProxyPool();
         String result = null;
         HttpGet httpget = null;
         int statuscode =0;
-        for(String proxy : proxys){
+        while (true){
+            String proxy = proxys.getProxy();
+            if(proxy == null) break;
             try {
                 httpget = new HttpGet(page.getUrl().toString());
                 HttpHost host = new HttpHost(proxy, 8001, "http");
@@ -60,7 +62,7 @@ public class PageDownload {
 
                 Header[] header = resp.getHeaders("Content-Type");
                 if(header == null || !header[0].getValue().contains("text/html")){
-                    log.info("download file fail by "+proxy+" : "+page.getUrl().toString());
+                    log.info("download file fail "+" : "+page.getUrl().toString());
                     page.setStatus("end");
                     return result;
                 }
@@ -69,18 +71,18 @@ public class PageDownload {
                     HttpEntity entity = resp.getEntity();
                     result = getContent(entity,page);
                     page.setRetriesSinceFetch(0);
-                    log.info("download page success by "+proxy+" : "+page.getUrl().toString());
+                    log.info("download page success : "+page.getUrl().toString());
                     return result;
                 }else if(statuscode>400 && statuscode <500){
                     page.setStatus("end");
-                    log.info("download page "+statuscode+"     by "+proxy+" : "+page.getUrl().toString());
+                    log.info("download page "+statuscode+"     : "+page.getUrl().toString());
                     return result;
                 }else{
-                    log.info("download page "+statuscode+"     by "+proxy+" : "+page.getUrl().toString());
+                    log.info("download page "+statuscode+"     : "+page.getUrl().toString());
                 }
             }catch (Exception e ){
                 page.setStatus("fail");
-                log.info("download page error "+e.getMessage()+" by "+proxy+" : "+page.getUrl().toString());
+                log.info("download page error "+e.getMessage()+" : "+page.getUrl().toString());
             }finally {
                 httpget.abort();
             }

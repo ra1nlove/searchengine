@@ -78,9 +78,7 @@ public class TextExtract {
 				boolstart = boolend = false;
 			}
 		}
-
-		return text.toString();
-
+		return text.toString().replaceAll("\\s","").replace("\r\n","");
 	}
 
 

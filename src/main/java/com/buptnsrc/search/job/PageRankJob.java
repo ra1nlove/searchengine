@@ -58,7 +58,9 @@ public class PageRankJob {
 
     public static void main(String[] args) throws Exception {
         PageRankJob job = new PageRankJob();
-        job.pagerank();
+        for(int i=1;i<=30;i++) {
+            job.pagerank();
+        }
     }
 
 }

@@ -7,9 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.net.URL;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by rain on 17-2-24.
@@ -36,8 +34,8 @@ public class UrlUtils {
     }
 
     public static boolean urlFilter(String url){
-        if(url.endsWith(".js")||url.endsWith(".apk")||!url.startsWith("http")||url.endsWith("zip")||url ==null ||url.contains("comment")
-                ||url.contains("javascrip")||url.contains("jpg")||url.endsWith("exe") || url.endsWith("jpg") || url.contains("#")){
+        if(!url.startsWith("http://tech.sin") || url.endsWith(".js")||url.endsWith(".apk")||!url.startsWith("http")||url.endsWith("zip")||url ==null ||url.contains("comment")
+                ||url.contains("javascrip")||url.contains("jpg")||url.endsWith("exe") || url.endsWith("png") || url.contains("#")){
             return false;
         }
         return true;
