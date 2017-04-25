@@ -62,10 +62,6 @@ public class BayesTest {
     @Test
     public void testClassify() throws Exception {
         //TODO: Test goes here...
-        WebPage page = new WebPage();
-        page.setUrl("http://sports.sina.com.cn/g/laliga/2017-04-24/doc-ifyepsec0546113.shtml");
-        String content = PageDownload.download(page);
-        content = TextExtract.getText(content);
-        System.out.println(Bayes.classify(content));
+        System.out.println(Bayes.classify("互联网彩票的地下生意：绕过监管、“App代售”兴起_创事记_新浪科技_新浪网 "));
     }
 }

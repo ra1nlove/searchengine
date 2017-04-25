@@ -23,7 +23,7 @@ public class GoraTest {
         Result<String,WebPage> result = query.execute();
         while(result.next()){
             WebPage page = result.get();
-            System.out.println(page.getPagerank()+"   "+page.getUrl());
+            System.out.println(page.getBayes()+"   "+page.getUrl());
         }
     }
 

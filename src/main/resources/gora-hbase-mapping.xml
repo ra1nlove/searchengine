@@ -1,27 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-   Licensed to the Apache Software Foundation (ASF) under one or more
-   contributor license agreements.  See the NOTICE file distributed with
-   this work for additional information regarding copyright ownership.
-   The ASF licenses this file to You under the Apache License, Version 2.0
-   (the "License"); you may not use this file except in compliance with
-   the License.  You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
-
-<!--
-  Gora Mapping file for HBase Backend
--->
 <gora-otd>
   <table name="webpage"> <!-- optional descriptors for tables -->
-    <family name="common"/> <!-- This can also have params like compression, bloom filters -->
+    <family name="common"/>
+    <family name="page"/><!-- This can also have params like compression, bloom filters -->
   </table>
 
   <class name="com.buptnsrc.search.resource.WebPage" keyClass="java.lang.String" table="webpage">
@@ -32,17 +14,18 @@
     <field name="fetchInterval" family="common" qualifier="interval"/>
     <field name="retriesSinceFetch" family="common" qualifier="retriestimes"/>
     <field name="fetchTime" family="common" qualifier="fetchtime"/>
-    <field name="md5" family="common" qualifier="md5"/>
+    <field name="simhash" family="common" qualifier="md5"/>
     <field name="type" family="common" qualifier="type"/>
-    <field name="keywords" family="common" qualifier="keywords"/>
-    <field name="description" family="common" qualifier="description"/>
-    <field name="title" family="common" qualifier="title"/>
-    <field name="h1" family="common" qualifier="h1"/>
-    <field name="content" family="common" qualifier="content"/>
+    <field name="keywords" family="page" qualifier="keywords"/>
+    <field name="description" family="page" qualifier="description"/>
+    <field name="title" family="page" qualifier="title"/>
+    <field name="h1" family="page" qualifier="h1"/>
+    <field name="content" family="page" qualifier="content"/>
     <field name="relate" family="common" qualifier="relate"/>
     <field name="bayes" family="common" qualifier="bayes"/>
     <field name="outlinks" family="outlinks"/>
     <field name="pagerank" family="common" qualifier="pagerank"/>
+    <field name="scores" family="common" qualifier="score"/>
   </class>
 
 </gora-otd>

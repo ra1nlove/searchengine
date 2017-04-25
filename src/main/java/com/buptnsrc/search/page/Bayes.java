@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-
 public class Bayes {
 	
 	public static List<String> stopword = new ArrayList<String>();
@@ -54,7 +53,7 @@ public class Bayes {
 		List<String> wordList = seg.sentenceProcess(text);
 		Map<String,Integer> wordnum = new HashMap<>();
 		for(String word : wordList){
-			if(!stopword.contains(word)) {
+			if(!stopword.contains(word)&&word.length()>1) {
 				wordnum.put(word, wordnum.getOrDefault(word, 0) + 1);
 				if(wordnum.get(word)>max){
 					max = wordnum.get(word);
@@ -72,7 +71,7 @@ public class Bayes {
 		Collections.sort(words, new Comparator<Map.Entry<String, Integer>>() {
 			@Override
 			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                return (o1.getValue()).toString().compareTo(o2.getValue().toString());
+                return (o2.getValue()).toString().compareTo(o1.getValue().toString());
 			}
 		});
 
@@ -80,7 +79,6 @@ public class Bayes {
 		for(int i=0;i<words.size()&&i<20;i++){
 			result.add(words.get(i).getKey());
 		}
-
 		return result;
 	}
 
@@ -89,19 +87,26 @@ public class Bayes {
 		double prob_c = 1.0 ;
 		Set<String> wordSet = getFeature(text);
 		for(String word : wordSet){
-			if(!stopword.contains(word)){
-				String key = category+"_"+word;
-				if(wordmap.containsKey(key)){
-					double dcw = wordmap.get(key);
-					prob_c = (dcw+1)/(10000);
-				}else{
-					prob_c = 1.0/(10000);
-				}
-				prob = prob*prob_c*200;
+			String key = category+"_"+word;
+			if(wordmap.containsKey(key)){
+				double dcw = wordmap.get(key);
+				prob_c = (dcw+1);
+			}else{
+				prob_c = 1.0;
 			}
+			prob = prob*prob_c;
 		}
 		return prob/2;
 	}
+
+	public static double getScore(String text){
+        double tech = getProb(text,"科技");
+        double other = getProb(text,"其它");
+        double result = tech/other;
+        if(result<1) return 1;
+        return result;
+    }
+
 
 	public static boolean classify(String text) {
 		double tech = getProb(text,"科技");

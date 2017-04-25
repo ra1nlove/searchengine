@@ -21,7 +21,6 @@ import java.util.concurrent.CountDownLatch;
 public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
 
     BloomFilter<byte[]> bloomFilter = BloomFilter.create(Funnels.byteArrayFunnel(),1000000);
-
     private Log log = LogFactory.getLog(FetcherMapper.class);
     private Queue<WebPage> pages = new ConcurrentLinkedDeque<WebPage>();
     private final CountDownLatch endGate = new CountDownLatch(20);
@@ -47,7 +46,6 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         public void run(){
             String url = null;
             try{
-
                 while (true) {
                     WebPage page = pages.poll();
                     if (page != null){
@@ -112,7 +110,12 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
             String content = TextExtract.getText(result);
             Boolean topic = Bayes.classify(content);
             if(headtopic || topic){
+                double score_title = Bayes.getScore(title);
+                double score_keyword = Bayes.getScore(keywords);
+                double score_content = Bayes.getScore(content);
+                double score = 0.4*Math.log10(score_title) + 0.4*Math.log10(score_keyword) + 0.2*Math.log10(score_content);
                 hash = SimHash.simHash(content);
+                page.setBayes(score);
                 page.setContent(content);
                 page.setRelate("true");
                 page.setType("detail");
@@ -137,10 +140,9 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 page.setType("list");
                 return;
             }
-
         }
 
-        if(page.getMd5() != null && SimHash.hammingDistance(hash,page.getMd5().toString())<4){
+        if(page.getSimhash() != null && SimHash.hammingDistance(hash,page.getSimhash().toString())<4){
             int interval = page.getFetchInterval();
             page.setFetchInterval(interval*2);
             page.setStatus("fetch");
@@ -153,7 +155,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         page.setKeywords(keywords);
         page.setH1(h1);
         page.setOutlinks(pages);
-        page.setMd5(hash);
+        page.setSimhash(hash);
 
         for (CharSequence newurl : pages.keySet()) {
             context.getCounter("FetchJob", "newall").increment(1);
