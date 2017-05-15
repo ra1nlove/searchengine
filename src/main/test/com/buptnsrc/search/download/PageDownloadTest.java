@@ -30,9 +30,6 @@ public void after() throws Exception {
 @Test
 public void testDownload() throws Exception { 
 //TODO: Test goes here...
-    WebPage page = new WebPage();
-    page.setUrl("http://sax.sina.com.cn/yqdt2014/qypx/201703/t20170309_1350734.htm");
-    String content = PageDownload.download(page);
 
 } 
 

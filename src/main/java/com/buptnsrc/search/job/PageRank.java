@@ -24,6 +24,7 @@ import org.apache.spark.api.java.function.PairFunction;
 import scala.Tuple2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,9 +32,9 @@ import java.util.List;
  */
 public class PageRank {
 
-    public void run(){
+    public static void main(String[] args) {
         try {
-            SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("demo");
+            SparkConf sparkConf = new SparkConf().setAppName("demo").setMaster("local");
             JavaSparkContext sc = new JavaSparkContext(sparkConf);
 
             Configuration conf = HBaseConfiguration.create();
@@ -68,26 +69,27 @@ public class PageRank {
                             return new Tuple2<>(url,urls);
                         }
                     }
-            );
+            ).cache();
 
             JavaPairRDD<String,Double> ranks = links.mapValues(p->1.0);
 
-            for(int i=0;i<30;i++){
+            for(int i=0;i<1;i++){
                 JavaPairRDD<String,Double> contribute = links.join(ranks).flatMapToPair(
                         new PairFlatMapFunction<Tuple2<String, Tuple2<Iterable<String>, Double>>, String, Double>() {
                             @Override
-                            public Iterable<Tuple2<String, Double>> call(Tuple2<String, Tuple2<Iterable<String>, Double>> stringTuple2Tuple2) throws Exception {
+                            public Iterator<Tuple2<String, Double>> call(Tuple2<String, Tuple2<Iterable<String>, Double>> stringTuple2Tuple2) throws Exception {
                                 List<Tuple2<String,Double>> result = new ArrayList<>();
                                 Iterable<String> urls = stringTuple2Tuple2._2()._1();
-                                Double score = stringTuple2Tuple2._2()._2()/Iterables.size(urls);
+                                Double score = stringTuple2Tuple2._2()._2()/ Iterables.size(urls);
                                 urls.forEach(url->result.add(new Tuple2<>(url,score)));
-                                return result;
+                                return result.iterator();
                             }
                         }
                 );
                 ranks = contribute.reduceByKey((a,b)->a+b).mapValues(sum->sum*0.85+0.15);
             }
 
+            ranks.foreach(p->System.out.println(p._1()));
             HTable table = new HTable(conf,"webpage");
             for(Tuple2<String,Double> tuple : ranks.collect()){
                 Put put = new Put(tuple._1().getBytes());
@@ -96,14 +98,10 @@ public class PageRank {
             }
 
             table.close();
+            return;
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        PageRank pr = new PageRank();
-        pr.run();
     }
 
 }

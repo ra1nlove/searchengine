@@ -16,25 +16,10 @@ public class GoraTest {
 
     @Test
     public void getAllData() throws Exception {
-        DataStore<String, WebPage> pageStore;
-        Configuration conf = HBaseConfiguration.create();
-        pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf);
-        Query<String,WebPage> query = pageStore.newQuery();
-        Result<String,WebPage> result = query.execute();
-        while(result.next()){
-            WebPage page = result.get();
-            if(page.getStatus()!=null)
-            System.out.println(page.getRelate()+"   "+page.getUrl());
-        }
     }
 
     @Test
     public void getData() throws Exception {
-        DataStore<String, WebPage> pageStore;
-        Configuration conf = HBaseConfiguration.create();
-        pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf);
-        WebPage page = pageStore.get("http://www.sina.com.cn/");
-        System.out.println(page.getPagerank()+"   "+page.getUrl());
     }
 
 }

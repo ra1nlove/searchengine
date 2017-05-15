@@ -62,6 +62,5 @@ public class BayesTest {
     @Test
     public void testClassify() throws Exception {
         //TODO: Test goes here...
-        System.out.println(Bayes.classify("互联网彩票的地下生意：绕过监管、“App代售”兴起_创事记_新浪科技_新浪网 "));
     }
 }
