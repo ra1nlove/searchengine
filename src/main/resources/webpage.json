@@ -21,7 +21,7 @@
     {"name": "outlinks","type": {"type": "map","values": ["null","string"]},"default":{}},
     {"name": "relate", "type": ["null","string"], "default":null},
     {"name": "bayes", "type": "double", "default":0},
-    {"name": "pagerank", "type": "float", "default":1},
+    {"name": "pagerank", "type": "double", "default":1},
     {"name": "scores", "type": "double", "default":0}
   ]
 }

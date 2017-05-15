@@ -1,4 +1,4 @@
-package com.buptnsrc.search.demo;
+package com.buptnsrc.search.control;
 
 import com.buptnsrc.search.resource.WebPage;
 import org.apache.gora.query.Query;
@@ -23,7 +23,8 @@ public class GoraTest {
         Result<String,WebPage> result = query.execute();
         while(result.next()){
             WebPage page = result.get();
-            System.out.println(page.getBayes()+"   "+page.getUrl());
+            if(page.getStatus()!=null)
+            System.out.println(page.getRelate()+"   "+page.getUrl());
         }
     }
 
@@ -32,7 +33,7 @@ public class GoraTest {
         DataStore<String, WebPage> pageStore;
         Configuration conf = HBaseConfiguration.create();
         pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf);
-        WebPage page = pageStore.get("http://tech.sina.com.cn/zt_d/zhouhangjiayueting");
+        WebPage page = pageStore.get("http://www.sina.com.cn/");
         System.out.println(page.getPagerank()+"   "+page.getUrl());
     }
 

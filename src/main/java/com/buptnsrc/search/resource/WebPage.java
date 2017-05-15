@@ -7,7 +7,7 @@ package com.buptnsrc.search.resource;
 @SuppressWarnings("all")
 /** WebPage is the primary data structure  */
 public class WebPage extends org.apache.gora.persistency.impl.PersistentBase implements org.apache.avro.specific.SpecificRecord, org.apache.gora.persistency.Persistent {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"simhash\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"type\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"keywords\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"title\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"h1\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"relate\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"bayes\",\"type\":\"double\",\"default\":0},{\"name\":\"pagerank\",\"type\":\"float\",\"default\":1},{\"name\":\"scores\",\"type\":\"double\",\"default\":0}],\"default\":null}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"WebPage\",\"namespace\":\"com.buptnsrc.search.resource\",\"doc\":\"WebPage is the primary data structure \",\"fields\":[{\"name\":\"url\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"charset\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"fetchTime\",\"type\":\"long\",\"default\":0},{\"name\":\"fetchInterval\",\"type\":\"int\",\"default\":1},{\"name\":\"retriesSinceFetch\",\"type\":\"int\",\"default\":0},{\"name\":\"status\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"statusCode\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"simhash\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"type\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"keywords\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"description\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"title\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"h1\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"content\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"outlinks\",\"type\":{\"type\":\"map\",\"values\":[\"null\",\"string\"]},\"default\":{}},{\"name\":\"relate\",\"type\":[\"null\",\"string\"],\"default\":null},{\"name\":\"bayes\",\"type\":\"double\",\"default\":0},{\"name\":\"pagerank\",\"type\":\"double\",\"default\":1},{\"name\":\"scores\",\"type\":\"double\",\"default\":0}],\"default\":null}");
 
   /** Enum containing all data bean's fields. */
   public static enum Field {
@@ -114,7 +114,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   private java.util.Map<CharSequence,CharSequence> outlinks;
   private CharSequence relate;
   private double bayes;
-  private float pagerank;
+  private double pagerank;
   private double scores;
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
   // Used by DatumWriter.  Applications should not call. 
@@ -164,7 +164,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     case 14: outlinks = (java.util.Map<CharSequence,CharSequence>)((value instanceof org.apache.gora.persistency.Dirtyable) ? value : new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)value)); break;
     case 15: relate = (CharSequence)(value); break;
     case 16: bayes = (Double)(value); break;
-    case 17: pagerank = (Float)(value); break;
+    case 17: pagerank = (Double)(value); break;
     case 18: scores = (Double)(value); break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
@@ -581,7 +581,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
   /**
    * Gets the value of the 'pagerank' field.
    */
-  public Float getPagerank() {
+  public Double getPagerank() {
     return pagerank;
   }
 
@@ -589,7 +589,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
    * Sets the value of the 'pagerank' field.
    * @param value the value to set.
    */
-  public void setPagerank(Float value) {
+  public void setPagerank(Double value) {
     this.pagerank = value;
     setDirty(17);
   }
@@ -687,7 +687,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     private java.util.Map<CharSequence,CharSequence> outlinks;
     private CharSequence relate;
     private double bayes;
-    private float pagerank;
+    private double pagerank;
     private double scores;
 
     /** Creates a new Builder */
@@ -772,7 +772,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         fieldSetFlags()[16] = true;
       }
       if (isValidValue(fields()[17], other.pagerank)) {
-        this.pagerank = (Float) data().deepCopy(fields()[17].schema(), other.pagerank);
+        this.pagerank = (Double) data().deepCopy(fields()[17].schema(), other.pagerank);
         fieldSetFlags()[17] = true;
       }
       if (isValidValue(fields()[18], other.scores)) {
@@ -1203,12 +1203,12 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
     }
     
     /** Gets the value of the 'pagerank' field */
-    public Float getPagerank() {
+    public Double getPagerank() {
       return pagerank;
     }
     
     /** Sets the value of the 'pagerank' field */
-    public Builder setPagerank(float value) {
+    public Builder setPagerank(double value) {
       validate(fields()[17], value);
       this.pagerank = value;
       fieldSetFlags()[17] = true;
@@ -1271,7 +1271,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
         record.outlinks = fieldSetFlags()[14] ? this.outlinks : (java.util.Map<CharSequence,CharSequence>) new org.apache.gora.persistency.impl.DirtyMapWrapper((java.util.Map)defaultValue(fields()[14]));
         record.relate = fieldSetFlags()[15] ? this.relate : (CharSequence) defaultValue(fields()[15]);
         record.bayes = fieldSetFlags()[16] ? this.bayes : (Double) defaultValue(fields()[16]);
-        record.pagerank = fieldSetFlags()[17] ? this.pagerank : (Float) defaultValue(fields()[17]);
+        record.pagerank = fieldSetFlags()[17] ? this.pagerank : (Double) defaultValue(fields()[17]);
         record.scores = fieldSetFlags()[18] ? this.scores : (Double) defaultValue(fields()[18]);
         return record;
       } catch (Exception e) {
@@ -1688,7 +1688,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 				  /**
 	   * Gets the value of the 'pagerank' field.
 		   */
-	  public Float getPagerank() {
+	  public Double getPagerank() {
 	    throw new UnsupportedOperationException("Get is not supported on tombstones");
 	  }
 	
@@ -1696,7 +1696,7 @@ public class WebPage extends org.apache.gora.persistency.impl.PersistentBase imp
 	   * Sets the value of the 'pagerank' field.
 		   * @param value the value to set.
 	   */
-	  public void setPagerank(Float value) {
+	  public void setPagerank(Double value) {
 	    throw new UnsupportedOperationException("Set is not supported on tombstones");
 	  }
 	  

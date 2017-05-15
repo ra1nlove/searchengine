@@ -47,8 +47,8 @@ public class PageDownload {
                         .setSocketTimeout(10000)
                         .setProxy(host)
                         .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
-
                         .build();
+
                 //设置请求头
                 httpget.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/21.0.1180.79 Safari/537.1");
                 httpget.setHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
@@ -71,6 +71,7 @@ public class PageDownload {
                     HttpEntity entity = resp.getEntity();
                     result = getContent(entity,page);
                     page.setRetriesSinceFetch(0);
+                    page.setStatus("fetch");
                     log.info("download page success : "+page.getUrl().toString());
                     return result;
                 }else if(statuscode>400 && statuscode <500){
@@ -78,6 +79,7 @@ public class PageDownload {
                     log.info("download page "+statuscode+"     : "+page.getUrl().toString());
                     return result;
                 }else{
+                    page.setStatus("fetch");
                     log.info("download page "+statuscode+"     : "+page.getUrl().toString());
                 }
             }catch (Exception e ){
@@ -88,14 +90,12 @@ public class PageDownload {
             }
         }
 
-        if(statuscode>=500) {
+        if(statuscode>=500 || (page.getStatus()!=null || "fail".equals(page.getStatus().toString()))) {
             int num = page.getRetriesSinceFetch();
             num++;
             page.setRetriesSinceFetch(num);
-            if(num>3){
+            if(num>3) {
                 page.setStatus("end");
-            }else{
-                page.setStatus("fetch");
             }
         }
 

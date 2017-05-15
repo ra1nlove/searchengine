@@ -66,7 +66,6 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 endGate.countDown();
             }
         }
-
     }
 
     @Override
@@ -107,6 +106,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         Boolean detailPage = PageClassify.DetailPageClassify(result);
         String hash = "";
         if(detailPage){
+            page.setType("detail");
             String content = TextExtract.getText(result);
             Boolean topic = Bayes.classify(content);
             if(headtopic || topic){
@@ -118,14 +118,13 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 page.setBayes(score);
                 page.setContent(content);
                 page.setRelate("true");
-                page.setType("detail");
             }else{
                 page.setRelate("false");
                 page.setStatus("end");
-                page.setType("detail");
                 return;
             }
         }else{
+            page.setType("list");
             if(headtopic){
                 String mes = "";
                 for(CharSequence l : pages.keySet()){
@@ -133,11 +132,9 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 }
                 hash = TextExtract.getHash(mes);
                 page.setRelate("true");
-                page.setType("list");
             }else{
                 page.setRelate("false");
                 page.setStatus("end");
-                page.setType("list");
                 return;
             }
         }
@@ -145,7 +142,6 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
         if(page.getSimhash() != null && SimHash.hammingDistance(hash,page.getSimhash().toString())<4){
             int interval = page.getFetchInterval();
             page.setFetchInterval(interval*2);
-            page.setStatus("fetch");
         }else{
             page.setStatus("index");
         }
@@ -169,7 +165,5 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 context.getCounter("FetchJob", "new").increment(1);
             }
         }
-
     }
-
 }

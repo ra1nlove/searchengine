@@ -11,6 +11,7 @@ import org.apache.gora.query.Query;
 import org.apache.gora.store.DataStore;
 import org.apache.gora.store.DataStoreFactory;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 
@@ -29,11 +30,8 @@ public class ScoreJob {
     public ScoreJob(){
         FIELDS.add(WebPage.Field.STATUS);
         FIELDS.add(WebPage.Field.URL);
-        FIELDS.add(WebPage.Field.H1);
-        FIELDS.add(WebPage.Field.KEYWORDS);
-        FIELDS.add(WebPage.Field.CONTENT);
-        FIELDS.add(WebPage.Field.TYPE);
-        FIELDS.add(WebPage.Field.TITLE);
+        FIELDS.add(WebPage.Field.PAGERANK);
+        FIELDS.add(WebPage.Field.BAYES);
     }
 
     public void score() throws Exception{
@@ -54,7 +52,7 @@ public class ScoreJob {
         filter.setOperands(list);
         query.setFilter(filter);
 
-        GoraMapper.initMapperJob(job,query,dataStore, Text.class,WebPage.class,ScoreMapper.class,true);
+        GoraMapper.initMapperJob(job,query,dataStore, Text.class,DoubleWritable.class,ScoreMapper.class,true);
         GoraReducer.initReducerJob(job,dataStore,ScoreReducer.class);
 
         job.waitForCompletion(true);

@@ -83,11 +83,17 @@
             <version>1.0.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-server</artifactId>
+            <version>0.98.24-hadoop2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
 
-        <finalName>index</finalName>
+        <finalName>PageRank</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,7 +134,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.buptnsrc.search.job.IndexJob</mainClass>
+                            <mainClass>com.buptnsrc.search.job.PageRank</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

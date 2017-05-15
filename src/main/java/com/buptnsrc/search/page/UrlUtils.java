@@ -34,7 +34,7 @@ public class UrlUtils {
     }
 
     public static boolean urlFilter(String url){
-        if(!url.startsWith("http://tech.sin") || url.endsWith(".js")||url.endsWith(".apk")||!url.startsWith("http")||url.endsWith("zip")||url ==null ||url.contains("comment")
+        if(url.endsWith(".js")||url.endsWith(".apk")||!url.startsWith("http")||url.endsWith("zip")||url ==null ||url.contains("comment")
                 ||url.contains("javascrip")||url.contains("jpg")||url.endsWith("exe") || url.endsWith("png") || url.contains("#")){
             return false;
         }
