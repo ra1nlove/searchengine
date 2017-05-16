@@ -19,7 +19,7 @@ do
     echo "sleep 30s to start generate"
     sleep 30;
 
-    hadoop jar index.jar
+    spark-submit --master yarn --class com.buptnsrc.search.job.PageRank --name pagerank PageRank.jar
 	echo $?
 
     echo "sleep 30s to start generate"
