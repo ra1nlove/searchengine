@@ -55,7 +55,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                             context.getCounter("FetchJob","success").increment(1);
                             parse(page, result, context);
                         }
-                        context.write(page.getUrl().toString(), page);
+                        context.write(UrlUtils.reverseUrl(page.getUrl().toString()), page);
                     }else{
                         break;
                     }
@@ -161,7 +161,7 @@ public class FetcherMapper extends GoraMapper<String,WebPage, String, WebPage> {
                 bloomFilter.put(newurl.toString().getBytes());
                 WebPage newpage = new WebPage();
                 newpage.setUrl(newurl);
-                context.write(newurl.toString(), newpage);
+                context.write(UrlUtils.reverseUrl(newurl.toString()), newpage);
                 context.getCounter("FetchJob", "new").increment(1);
             }
         }

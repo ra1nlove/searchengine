@@ -87,7 +87,7 @@
 
     <build>
 
-        <finalName>Inject</finalName>
+        <finalName>fetch</finalName>
 
         <plugins>
             <plugin>
@@ -129,7 +129,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.buptnsrc.search.job.InjectorJob</mainClass>
+                            <mainClass>com.buptnsrc.search.job.FetcherJob</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -21,7 +21,7 @@ public class GeneratorReducer extends GoraReducer<Text, WebPage, String, WebPage
                 page.clearDirty();
                 page.setStatus("generate");
                 context.getCounter("generator", "urls").increment(1);
-                log.info("generate url : " + url.toString());
+                log.info("generate url : " + page.getUrl().toString());
             }
             context.write(url.toString(), page);
         }

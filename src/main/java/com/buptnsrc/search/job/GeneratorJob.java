@@ -19,7 +19,6 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 
-
 /**
  * 产生可以抓取的url
  * Created by rain on 17-2-23.

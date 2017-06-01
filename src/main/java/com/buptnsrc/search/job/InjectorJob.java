@@ -1,5 +1,6 @@
 package com.buptnsrc.search.job;
 
+import com.buptnsrc.search.page.UrlUtils;
 import com.buptnsrc.search.resource.Sites;
 import com.buptnsrc.search.resource.WebPage;
 import org.apache.gora.store.DataStore;
@@ -8,6 +9,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.log4j.Logger;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
 
 /**
@@ -26,14 +28,15 @@ public class InjectorJob {
         log.info("InjectorJob : starting at " + sdf.format(start));
 
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "10.108.114.127");
-        conf.set("hbase.zookeeper.property.clientPort", "2181");
+//        conf.set("hbase.zookeeper.quorum", "10.108.114.127");
+//        conf.set("hbase.zookeeper.property.clientPort", "2181");
 
         DataStore<String,WebPage> pageStore = DataStoreFactory.getDataStore(String.class, WebPage.class, conf) ;
-        for(String url : Sites.urls){
+        for(String link : Sites.urls){
+            link = UrlUtils.urlNormalize(link);
             WebPage page = new WebPage();
-            page.setUrl(url);
-            pageStore.put(url,page);
+            page.setUrl(link);
+            pageStore.put(UrlUtils.reverseUrl(link),page);
         }
         pageStore.close();
 
